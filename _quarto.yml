@@ -1,21 +1,34 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  title: "Cookbooks"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-
+  title: "Comprehensive Guide to Bioinformatics in R"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - index.qmd
+      - text: "&nbsp;"
+      - Intro.qmd
+      - File_download.qmd
+      - Pivot.qmd
+      - Scatter.qmd
+      - Volcano.qmd
+      - Line.qmd
+      - Sparkline.qmd
+      - Kernel.qmd
+      - Box and Whisker.qmd
+      - Violin.qmd
+      - Pheatmap.qmd
+      - Hydra.qmd
+  
 format:
   html:
-    theme:
-      - cosmo
-      - brand
-    css: styles.css
+    theme: readable
     toc: true
-
-editor: visual
-
+    toc-depth: 5
+    toc-location: right
+    toc-fixed: true
+    toc-title: "In this chapter:"  
+    numbered-sections: false

@@ -1,0 +1,212 @@
+---
+title: "Chapter 11: Pheatmap"
+date: last-modified
+date-fomrat: "MMM D"
+author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
+format:
+  html:
+    theme: readable 
+    toc: true
+    toc-depth: 5
+    toc-expand: true
+    number-sections: false
+---
+
+# What is a heat map
+
+A heat map is a chart that details gene expression. It is capable of showing us the intensity of the response of a gene or strand of RNA or DNA to a control. In this example data, we are exposing various yeast strains, each one with a gene deleted, to different environmental growth conditions to see what kind of effects it will have upon protein synthesis. In this we will be exploring the strengths of the `Pheatmap` package and how to operate the functions inside the package.
+
+# Packages
+
+To start off, it's important to know that we only need two packages for this, which can both be installed with `install.packages`; these packages being `tidyverese` and `pheatmap`. The process for installing these two packages are the same as in the [**File Download Instructions**](File_download.qmd).
+
+```{r Libraries, message=FALSE, warning=FALSE, eval = FALSE}
+install.packages("pheatmap")
+
+library(pheatmap)
+
+install.packages("tidyverse")
+
+library(tidyverse)
+```
+
+```{r library actual, message = FALSE, warning = FALSE, include= FALSE, echo = FALSE}
+library(pheatmap)
+library(tidyverse)
+```
+
+# Data View
+
+```{r date conversion, include=FALSE, eval=FALSE}
+# 1. Get the path of the file currently open in RStudio
+current_path <- rstudioapi::getActiveDocumentContext()$path
+
+# 2. Extract the directory and base filename
+dir_name <- dirname(current_path)
+base_name <- "Pheatmap" # The static part of your name
+
+# 3. Create the new name with today's date (e.g., "Jan_22")
+new_name <- paste0(base_name, ".qmd")
+new_path <- file.path(dir_name, new_name)
+
+# 4. Rename the file on the disk
+if (current_path != new_path) {
+  file.rename(current_path, new_path)
+  message("File renamed to: ", new_name)
+}
+```
+
+Before there is a heat map, there is data. More specifically, there is data in a matrix that we will assign to an object. To do this, import your data using the appropriate function specified in chapter I, (i.e. if its an excel file be sure to use `readxl`, ect.) and assign it to an object.
+
+If you need to pivot your data, please refer to [**Pivot**](Pivot.qmd)
+
+Here specifically we are using data from a previous study by Dr. Wiles where her students studied yeast's reaction to exposures to varying levels of sulfur and nitrogen over set quantities of time.
+
+You may have to edit your data like ours, which had to have the first row of ours removed as seen in the section after `group_data` is assigned.
+
+To learn how to download file types in R, check out the File Download Instructions document! For educational purposes, I will be importing an excel document from my computer. At the final portion of the code, we will show you a slice of the data set. Only showing the first 5 rows, and the first 10 columns. However, the data set is much larger than this.
+
+```{r Viewing Data}
+
+Data_hm_g1_r1 <- readxl::read_excel("~/R development/Data/Heat Map - A1 2401.xlsx")
+
+grouped_data <- Data_hm_g1_r1
+
+grouped_data$`Further Verification` <- NULL
+
+grouped_data <- column_to_rownames(grouped_data, var = c("Gene ID"))
+
+grouped_data <- as.matrix(grouped_data)
+
+print.table(grouped_data[1:5,1:10])
+```
+
+# Pheatmap
+
+To start off, we have a generic heat map. To create this, just type out the Pheatmap (or pretty heatmap) function as described below. It will default to the generic format, which will always be made with the following color pattern, columns and rows clustered by a hierarchical format, both dendrograms shown, and both row and column titles.
+
+```{r Basic Pheatmap}
+pheatmap(grouped_data)
+```
+
+## Clustering/Dendogram Control
+
+As stated earlier, hierarchical clustering is on by default. What this means is that both rows and columns are listed in order of how close they are to one another on the dendrogram. Generally, this is acceptable for listing out our genes as we want to know how related they are but not so helpful for listing out conditions where we may want to list them in a particular order. We are able to control this by setting `Cluster_rows/Cols` to `FALSE` to disable clustering and the dendrogram on rows and columns respectively.
+
+```{r Pheatmap Cluster/Dendogram}
+pheatmap(grouped_data,
+         cluster_rows = TRUE, 
+         cluster_cols = FALSE
+         )
+```
+
+## Creating Gaps
+
+In cases where we want to use the dendrogram but separate data into visibly distinct sub-heatmaps, we can cut the dendrogram using the `cutree_rows/cols` argument. You can specify how many slices you would like for the heatmap to be cut into by changing the number on the `cutree_rows/cols` argument.
+
+```{r Dendogram Gaps}
+pheatmap(grouped_data, 
+         cutree_rows=8,
+         cutree_cols = 7
+         )
+```
+
+For unclustered rows or columns, use the `gaps_rows/cols` function to split up your heat map at specified areas. Generally you want to use this function to separate conditions, or plate IDs. The location of the splits is up to your choice, as long as it coincides with your data set. So be sure to know how many rows and columns you are working with and how many divisions you want. In our case, the conditions change every 11 columns and the spot location prefix (A, B, C, etc.) changes in rows are specified.
+
+```{r Heatmap Gaps}
+pheatmap(grouped_data,
+         cluster_cols = FALSE, 
+         cluster_rows = FALSE,
+         gaps_row=c(10, 22, 34, 46, 58, 70, 82, 93),
+         gaps_col = c(11, 22, 33, 44, 55, 66)
+         )
+```
+
+## Graph Color Annotation
+
+To select colors, type out a vector that contains the colors you want to use with the high being the the rightmost color of the vector and the lowest being the leftmost color. You can specify the color you want by just writing it out or by typing its specific hexadecimal value. Be sure to use a palette that is color blind friendly and uses distinct colors to differentiate the levels of expression. Once you settle on your colors, set your vector equal to `colors` under the Pheatmap function.
+
+```{r Gradient around median}
+pheatmap(grouped_data,
+  color =  colorRampPalette(c("#7D3560",  "white", "#4E7705")) (1000)
+)
+```
+
+It is important to note that your middle color will align by default to the mean value of expression for your data set and might not perfectly align with 0 initially. Therefore it's important to use the formula listed below to find the max and min of the data, which can be converted into an object. Once collected use the breaks function and the formula listed below to adjust the middle color to 0. The object `breaks` is used to determine how many shades of a particular color you would like to have in the legend of the pheatmap. The lower the breaks, the more block like the gradient will be. The more breaks you have, the smoother the gradient will be.
+
+The following section of code shows how to represent your color gradient around the zero value. This uses a formula to find the minimum and maximum values in your dataset, and create breaks that align the 'white' color with the value zero.
+
+```{r Gradient around zero}
+data_min <- min(grouped_data, na.rm = TRUE)
+data_max <- max(grouped_data, na.rm = TRUE)
+breaks <- 200
+
+pheatmap(grouped_data,
+  color =  colorRampPalette(c("#7D3560",  "white", "#4E7705")) (breaks),
+  breaks = c(seq(data_min, 0, length.out=ceiling(breaks/2) + 1), 
+              seq(data_max/breaks, data_max, length.out=floor(breaks/2)))
+)
+```
+
+## Condition Annotation
+
+Here, we will not be using the color changing options for the pheatmap, and instead will be using the default coloring that comes with the package.
+
+To create an annotation, create a data frame specifying every condition you want to be annotated, be sure to specify how many times it appears; in this case we are specifying the 7 conditions in our data set and 11 time states. Be sure this data frame is assigned to a variable for use later. Also, ensure that your row names for your annotation match the column names of your data set. From there, create a vector that can correlate each point on our data frame with a color. Make sure you use distinct colors and that, if you are measuring time, use a progressively darker shade for each time interval to make a time gradient. Ensure that all names for your annotation colors are the same names of the columns in your annotations.
+
+```{r Annotation (condition)}
+
+annotation_col <- data.frame(
+  Conditions = factor(c(rep("LS30-SD30", 11),rep("LN30-SD30", 11),rep("LS37-SD37", 11),rep("LN37-SD37", 11),rep("SD37-SD30", 11),rep("LS37-LS30", 11),rep("LN37-LN30", 11))),
+  Time = rep(c(1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14), times = c(7)),
+  row.names = colnames(grouped_data))
+
+annotation_colors <- list(
+  Condition = c("LS30-SD30" = "pink", "LN30-SD30" = "blue", "LS37-SD37" = "tan", "LN37-SD37" = "orange", "SD37-SD30" = "red", "LS37-LS30" = "maroon", "LN37-LN30" = "yellow"),
+  Time = c("1" = "grey90", "2" = "grey80", "3" = "grey70", "4" = "grey60", "5" = "grey50", "6" = "grey40", "7" = "grey30", "8" = "grey20", "10" = "grey10", "12" = "grey0", "14" = "black")
+)
+
+names(annotation_colors) <- colnames(annotation_col)
+```
+
+For this graph, notice how the data is clustered by columns and rows. See how there is no time gradient due to the way it is clustered, and that all time frames of a condition are not located similarly. This can be useful in some instances, but for our purposes, we will be changing that.
+
+```{r Clustered Annotation}
+pheatmap(grouped_data,
+         cluster_cols = TRUE,
+         annotation_col = annotation_col,
+         annotation_colors = annotation_colors)
+```
+
+In this graph, notice that the clustering has been removed and that all conditions are grouped similarly. Also notice that the time annotation above the graph has turned into a gradient. We also have turned `cluster_cols = FALSE` so that the like categories are grouped together.
+
+```{r Nonclustered Annotation}
+pheatmap(
+  grouped_data,
+  cluster_cols = FALSE,
+  annotation_col = annotation_col,
+  annotation_colors = annotation_colors
+)
+```
+
+## Subset Views
+
+Subset creation allows us to effectively "zoom in" to any part of our heat map we may find interesting. To do this, use `as.matrix` followed by the name of your data set, `[grep` followed by parentheses, the condition you want on the row, followed by rownames, the name of the data set you are using, then repeat the same thing for columns. In the following pheatmap, we have specified only two conditions, with all of its time intervals, and only a small subset of spot IDs. In the next one, it's `[, grep ...` because there's nothing in front of the comma, that means that no rownames are specified, so you'll get all of them.
+
+Creating a matrix (`as.matrix`) from original dataset (`grouped_data`), but grab the row names that \^ (starts with) 2401A, in `grouped_data` only. Then there's a second grep that's specifically columns; here it's \^LS30_SD30.
+
+Putting the \<- will assign it to an object.
+
+```{r Subset of Data}
+seperated_data <- as.matrix(grouped_data[grep("^2401A", rownames(grouped_data)), grep("^LS30_SD30", colnames(grouped_data))])
+
+pheatmap(seperated_data)
+```
+
+```{r Subset of Data 2}
+condition_one <- as.matrix(grouped_data[, grep("^LS30_SD30", colnames(grouped_data))])
+
+pheatmap(condition_one)
+```
+
+In this pheatmap, we have only specified the condition. Therefore, all spot ID's are presented.

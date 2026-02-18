@@ -1,0 +1,223 @@
+---
+title: "Chapter 12: Hydra"
+date: last-modified
+date-fomrat: "MMM D"
+author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
+format:
+  html:
+    theme: readable 
+    toc: true
+    toc-depth: 5
+    toc-expand: true
+    number-sections: false
+---
+
+# Libraries
+
+```{r Libraries,echo=TRUE, results = 'hide', warning = FALSE}
+library(ggplot2)
+library(tidyverse)
+library(scales)
+library(kableExtra)
+library(patchwork)
+library(tidyr)
+library(boot)
+library(scales)
+```
+
+# Combinations
+
+Within R there is the possibility to create a graph consisting of two already existing graphs. To do this, we must first understand how to create the two graphs you desire which can be seen in previous chapters, such as [**Pheatmap**](Pheatmap.qmd), [**Violin**](Violin.qmd), etc. In this example, we use a density plot and a whisker plot that we created using the following code.
+
+## Outlier
+
+```{r date conversion, include=FALSE, eval=FALSE}
+# 1. Get the path of the file currently open in RStudio
+current_path <- rstudioapi::getActiveDocumentContext()$path
+
+# 2. Extract the directory and base filename
+dir_name <- dirname(current_path)
+base_name <- "Hydra" # The static part of your name
+
+# 3. Create the new name with today's date (e.g., "Jan_22")
+new_name <- paste0(base_name, ".qmd")
+new_path <- file.path(dir_name, new_name)
+
+# 4. Rename the file on the disk
+if (current_path != new_path) {
+  file.rename(current_path, new_path)
+  message("File renamed to: ", new_name)
+}
+```
+
+```{r data creation, echo = FALSE, results = 'hide', warning = FALSE}
+Verification_Data <- readxl::read_excel("C:/Users/dylan/OneDrive/Documents/R development/Box_Whisker/B&W Data/Verification Data.xlsx")
+df_box <- Verification_Data[-c(1:288),]
+delete_1 <- "_rep1$"
+delete_2 <- "_rep2$"
+delete_3 <- "_hr$"
+
+df_box <- df_box %>% 
+  select(-matches(delete_1), -matches(delete_2), -matches(delete_3))
+  
+df_box <- df_box[,-c(1)]
+
+df_box <- df_box[1:10, 1:8]
+
+df_box <- df_box %>%
+  rename_with(~ str_remove_all(., "^norm_"), everything()) %>%
+  rename_with(~ str_remove_all(., "_avg$"), everything())
+
+df_bw <- df_box %>% 
+  pivot_longer(cols = !c(1:2),
+               names_to = "conditions",
+               values_to = "abs")
+
+df_bw_1 <- df_bw %>% 
+  head(8)
+
+```
+
+```{r Outliers (fixed), echo = FALSE, results = 'hide', warning = FALSE}
+filtered_data_df <- df_bw %>% 
+  filter(conditions %in% c("SD37", "SD30"))
+  
+
+ordered_df <- filtered_data_df %>% 
+  mutate(conditions = fct_relevel(conditions, "SD37", "SD30"))
+
+data_fence <- ordered_df %>%
+  filter(conditions %in% c("SD37", "SD30")) %>% 
+  group_by(conditions) %>%
+  mutate(
+    Q1 = quantile(abs, 0.25),
+    Q3 = quantile(abs, 0.75),
+    IQR = Q3 - Q1,
+    lower_fence = Q1 - 1.5 * IQR,
+    upper_fence = Q3 + 1.5 * IQR,
+    is_outlier = abs < lower_fence | abs > upper_fence
+  ) %>%
+    summarise(
+    whisker_up = max(abs[abs <= unique(upper_fence)], na.rm = TRUE),
+    whisker_lo = min(abs[abs >= unique(lower_fence)], na.rm = TRUE),
+    upper_fen = unique(upper_fence),
+    lower_fen = unique(lower_fence)
+  ) %>%
+  ungroup()
+```
+
+```{r outliers}
+data_outlier <- df_bw %>%
+  group_by(conditions) %>%
+  mutate(
+    Q1 = quantile(abs, 0.25),
+    Q3 = quantile(abs, 0.75),
+    IQR = Q3 - Q1,
+    lower_fence = Q1 - 1.5 * IQR,
+    upper_fence = Q3 + 1.5 * IQR,
+    is_outlier = abs < lower_fence | abs > upper_fence
+  ) %>%
+  ungroup()
+
+outlier_data <- data_outlier %>%
+  filter(is_outlier) %>%
+  mutate(outlier_label = paste0(ver_pos))
+
+value_min <- min(filtered_data_df$abs)
+value_max <- max(filtered_data_df$abs)
+```
+
+```{r Combinations}
+density_A <- density(filtered_data_df$abs[filtered_data_df$conditions == "SD30"])
+density_B <- density(filtered_data_df$abs[filtered_data_df$conditions == "SD37"])
+
+# Extract the 'y' (density) values from the calculated densities
+y_values_A <- density_A$y
+y_values_B <- density_B$y
+
+# Combine and find the overall min and max density
+all_y_values <- c(y_values_A, y_values_B)
+min_density <- min(all_y_values)
+max_density <- max(all_y_values)
+
+x_range <- max(filtered_data_df$abs) - min(filtered_data_df$abs)
+
+y_range <- max_density - min_density
+
+appropriate_ratio <- x_range/y_range
+
+p_boxplot <- ggplot(ordered_df,
+    aes(x=abs,y=conditions, color = conditions))+
+  geom_boxplot(outlier.shape = 15, outlier.stroke = 1, outlier.colour = "black")+
+  xlim(value_min, value_max)+
+  geom_segment(data=data_fence,
+               aes(x=whisker_up,
+                   xend=whisker_up,
+                   y=as.numeric(conditions) - 0.25,
+                   yend=as.numeric(conditions) + 0.25))+
+geom_segment(data=data_fence,
+               aes(x=whisker_lo,
+                   xend=whisker_lo,
+                   y=as.numeric(conditions) - 0.25,
+                   yend=as.numeric(conditions) + 0.25))+
+geom_text(data = outlier_data,
+            aes(x = abs, y = conditions, label = ver_pos),
+            color = "black",
+            vjust = -1,
+            size = 3)+
+scale_color_manual(breaks = c("SD30", "SD37"), values = c("SD30" = "#F8766D","SD37" ="#A3A500"))+
+  scale_x_continuous(limits = c(0.1,0.4))
+  
+p_density <- ggplot(filtered_data_df,
+    aes(x=abs, color=conditions)
+  )+
+  facet_wrap(~ conditions, ncol = 1)+
+  xlim(value_min, value_max)+
+  geom_density(aes(colors = conditions), show.legend = FALSE)+
+  scale_color_manual(values = c("#F8766D", "#A3A500"))+
+  scale_x_continuous(limits = c(0.1, 0.4))+
+  theme(strip.text = element_blank())
+
+p_boxplot + p_density +plot_layout(nrow = 1, ncol = 2)
+
+(p_boxplot / p_density)
+
+combined_plot <- (p_boxplot / p_density +
+  plot_layout(widths = c(6, 0.1), heights = c(1, 3)))
+
+combined_plot
+```
+
+```{r dens in box}
+filtered_data_df$dens <- filtered_data_df %>% 
+  mutate(dens = 6.5)
+
+filtered_data_df %>% 
+  ggplot(x = abs, color = conditions)+
+  facet_wrap(~ conditions, ncol = 1)+
+  xlim(value_min, value_max)+
+   geom_boxplot(aes(x = abs, y = 6.25, color = conditions), width = 2, outlier.shape = 15, outlier.color = "black")+
+  geom_density(aes(x = abs, color = conditions), show.legend = FALSE)+
+  scale_x_continuous(limits = c(0.1, 0.4))+
+  labs(y = "density")+
+  geom_segment(data=data_fence,
+               aes(x=whisker_up,
+                   xend=whisker_up,
+                   y=as.numeric(6.25) - .75,
+                   yend=as.numeric(6.25) + .75),
+             color = (values = c( "#A3A500", "#F8766D")))+
+geom_segment(data=data_fence,
+               aes(x=whisker_lo,
+                   xend=whisker_lo,
+                   y=as.numeric(6.25) - .75,
+                   yend=as.numeric(6.25) + .75),
+             color = (values = c("#A3A500", "#F8766D")))+
+geom_text(data = outlier_data,
+            aes(x = abs, y = 6.25, label = ver_pos),
+            color = "black",
+            vjust = -1,
+            size = 3)+
+  scale_color_manual(values = c("#F8766D", "#A3A500"))+
+  theme(strip.text = element_blank())
+
+```

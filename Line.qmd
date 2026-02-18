@@ -1,0 +1,110 @@
+---
+title: "Chapter 6: Lineplot"
+author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
+date:   "'r Sys.Date()'"
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float:
+      collapsed: false
+---
+
+#Libraries
+
+```{r Libraries, echo=FALSE, include = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(ggforce)
+library(kableExtra)
+library(dplyr)
+library(tidyr)
+library(scales)
+```
+
+```{r date conversion, include=FALSE, eval=FALSE}
+# 1. Get the path of the file currently open in RStudio
+current_path <- rstudioapi::getActiveDocumentContext()$path
+
+# 2. Extract the directory and base filename
+dir_name <- dirname(current_path)
+base_name <- "Line" # The static part of your name
+
+# 3. Create the new name with today's date (e.g., "Jan_22")
+new_name <- paste0(base_name, ".qmd")
+new_path <- file.path(dir_name, new_name)
+
+# 4. Rename the file on the disk
+if (current_path != new_path) {
+  file.rename(current_path, new_path)
+  message("File renamed to: ", new_name)
+}
+```
+
+```{r Data Creation, echo = FALSE, include = FALSE}
+Verification_Data <- readxl::read_excel("C:/Users/dylan/OneDrive/Documents/R development/Box_Whisker/B&W Data/Verification Data.xlsx")
+df_big <- Verification_Data
+df_big <- df_big[,-c(1:2)]
+df_big <- df_big %>%
+  rename_with(~ str_remove_all(., "^norm_"), everything())
+df_big <- df_big[, 1:20]
+
+df_big$LN30_rep2 <- as.numeric(df_big$LN30_rep2)
+
+df_big <- df_big %>% 
+  pivot_longer(cols = c(3:20),
+               names_to = c("conditions", "rep"),
+               names_sep = "_",
+               values_to = "abs")
+
+
+```
+
+Line plots are charts that are designed to show us the change of a variable over a set interval across multiple experiments and create a line of best fit that attempts to show us how the average across each time interval changes.
+
+```{r Lineplot Data}
+mean_df_big <- df_big %>% 
+  filter(rep %in% c("rep1", "rep2")) %>% 
+  group_by(ver_pos, conditions, hour) %>% 
+  mutate(
+    mean = mean(abs, na.rm =TRUE),
+    sd = sd(abs, na.rm = TRUE)
+  )
+
+```
+
+```{r Lineplot}
+mean_df_big %>% 
+  filter(ver_pos == "2401A10") %>%
+  filter(conditions == "LS37") %>% 
+  ggplot(aes(x=hour,y=mean))+
+  geom_point(aes(color = conditions), shape = 15, fill = "#F8766D")+
+   geom_errorbar(aes(x = as.numeric(hour),
+                    ymin = as.numeric(mean) - as.numeric(sd),
+                    ymax = as.numeric(mean) + as.numeric(sd)),
+                 alpha = 0.5)+
+  geom_smooth(method = "lm", se = FALSE, aes(color = conditions))+
+  theme_bw()
+ 
+  # scale_y_continuous(transform = "log10")
+
+```
+
+
+
+
+
+
+```{r Lineplot_2}
+mean_df_big %>% 
+  filter(ver_pos == "2401A10") %>%
+  ggplot(aes(x=hour,y=mean))+
+  geom_point(aes(color = conditions), shape = 15)+
+   geom_errorbar(aes(x = as.numeric(hour),
+                    ymin = as.numeric(mean) - as.numeric(sd),
+                    ymax = as.numeric(mean) + as.numeric(sd)),
+                 alpha = 0.5)+
+  geom_smooth(method = "lm", se = FALSE, aes(color = conditions))+
+  theme_bw()
+
+```
+

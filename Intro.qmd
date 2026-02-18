@@ -1,0 +1,212 @@
+---
+title: "Chapter 1: Introduction to RStudio"
+date: last-modified
+date-fomrat: "MMM D"
+author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
+format:
+  html:
+    include-in-header:
+        - text: |
+            <style>
+            .hl-red {background-color: rgba( 255, 0, 0, 0.3); padding: 2px;}
+            .hl-blue {background-color: rgba( 0, 0, 255, 0.3); padding: 2px;}
+            .hl-green {background-color: rgba( 0, 255, 0, 0.3); padding: 2px;}
+            </style>
+    theme: readable 
+    toc: true
+    toc-depth: 5
+    toc-expand: true
+    number-sections: false
+---
+
+```{r packages, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(gt)
+```
+
+```{r date conversion, include=FALSE, eval=FALSE}
+# 1. Get the path of the file currently open in RStudio
+current_path <- rstudioapi::getActiveDocumentContext()$path
+
+# 2. Extract the directory and base filename
+dir_name <- dirname(current_path)
+base_name <- "Intro" # The static part of your name
+
+# 3. Create the new name with today's date (e.g., "Jan_22")
+new_name <- paste0(base_name, ".qmd")
+new_path <- file.path(dir_name, new_name)
+
+# 4. Rename the file on the disk
+if (current_path != new_path) {
+  file.rename(current_path, new_path)
+  message("File renamed to: ", new_name)
+}
+```
+
+Hello and welcome to the Complete Guide to R for Bioinformatics! In this cookbook, we will be discussing type of graphs that are useful for representing genomic data in RStudio. We will be guiding you throughout the coding processes and explaining what the lines of code do, such that you will be able to create representations of your data regardless of experience with R.
+
+In this chapter of the cookbook, we will be discussing fundamental concepts of RStudio to prepare you for more complex code later in this resource. The *FIRST* priority when building a code is installing and/or loading code functions called `libraries`. You might be thinking, "What are libraries?" Well, libraries are collections of coded functions and arguments that are combined together. In many cases, these packages can be installed to perform new processes that RStudio is not inherently capable of. In other cases, it may take a more complex process through base R and make the process easier or less intensive. The way we install libraries is using a function called `install.packages("")` which is an inherent process in R. You might notice the two quotation marks that were located inside the parentheses. This is how we write names in R and we specify the packages that we want to install between the quotation marks, in this case.
+
+# Running Libraries
+
+To run a line you create, you can pres the command (for Mac) or control (for Windows) buttons and press enter (Windows) or return (Mac) at the same time. You can also click the "Run" button located in the top right of the main window of RStudio. These processes have the same result, which is to run the code you write line-by-line. This is a useful technique to learn, as it allows you to see where the error is occurring in your code. This makes it easier to try and debug any errors, warnings, etc. that may come up when creating code.
+
+After you run `install.packages("")`, you will also have to load the package. This is because the computer only installed the software you specified but the program has not been signaled to run. To enable the package we installed, we use the `library()` function. Notice how this time, there is no quotation marks in between the parentheses. This is because what we want the computer to search for is something installed in the Studio. This will be important for later in this resource when we create functions, graphs, and objects. For now, though, it is important to know that you need to insert the name of the package you want to load in between the parentheses and run the code. After you complete these steps, you should have an R script file similar to the chunk below:
+
+```{r library example, eval=FALSE}
+  install.packages("tidyverse")
+  library(tidyverse)
+```
+
+# Creating Objects
+
+After running libraries, the next thing you will do is load in data, this can be found more in-depth in [**File Download Instructions**](File_download.qmd#reading-data). For this brief introduction, we will assume your data file is already in your Studio file window. When we load in R, the easiest way to store it for working purposes is to store the data as an object. Objects are data structures that will remain loaded in the RStudio project, that the computer can reference. When an object is created, it will be stored in the upper-right hand window of your Studio by its name and the amount of variables it has. Storing the data in this manner allows for easy callback and implementation with future functions without having to re-specify the type of data file in the future. An example of this will be shown below:
+
+```{r object creation, eval=FALSE}
+data <- read.csv("data.csv")
+```
+
+The above line of code is reading a file type called `Comma Seperated Value`, where all data in columns are separated by commas. The data types are covered more in [**File Download Instructions**](File_download.qmd#reading-data). This `data` object can then be referenced later in code to display the data file as a table or to be used in summarizing functions, normalizing data, and/or graphing processes. Its important to understand that *every time* you make a new line of code to change what is in the object or change what is being stored in the object, you will have to re-run the line creating the object. Otherwise, the stored data in the object will not update. It is also important to know that if you use the same name for a new object as the name of another object, the previously stored information will be overwritten. So, it is recommended that you find a naming convention for data files, objects, and figures that will be understandable to yourself and/or your group mates.\
+
+# Colors
+
+When you create graphs later in this cookbook, you will most likely want to use colors to designate points of significance, differentiate conditions from each other, and/or change the default colors of R to be in a colorblind friendly pallet.
+
+## Naming Colors
+
+To do this the easiest, you can simply use the name of the color you want to use. An example will be shown below
+
+```{r, eval=FALSE}
+
+"red"
+"blue"
+"green"
+```
+
+## Color range
+
+Another option that we can use for colors is to use the name and a number afterwards. The colors would be variations of the strength of colors. This can be used to make a custom gradient or to specify hues of colors in regard to strength of expression. More of this is talked about in [*Pheatmap*](Pheatmap.qmd). This is mainly used in the white-black gradients
+
+```{r, eval = FALSE}
+"grey10"
+```
+
+## Hex Colors
+
+Another way that we can specify colors using RStudio is to use the hex codes of the color that you want to use. This can be useful for using known and recognized colors for colorblind individuals without having to import extra packages and hope that the packages work together. To do so, you can follow the example below:
+
+```{r, eval=FALSE}
+"#304782"
+"#098246"
+"#982157"
+```
+
+## Hues
+
+The final way to specify a color that we will describe in this chapter is to use a package called `colorspace`. This allows us to specify certain hues of the color gradient to use. An example is shown below:
+
+```{r, eval = FALSE}
+install.packages("colorspace")
+library(colorspace)
+my_color <- sequential_hcl(5, palette = "Blues")[3]
+```
+
+This will produce an object with a hex color code. The hex color code for the above shade of blue is shown below:
+
+```{r, eval = FALSE}
+"#7FABD3"
+```
+
+Most default colors in R can be found using the [*R color cheatsheet*](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf)\
+
+# Shapes
+
+In later chapters, we will use shapes to be able to determine specific points from others, or to change how the data looks on a graph. In most cases, we will do so using a `shape =` argument. Instead of being able to specify a type of shape, we will have to use numbers assigned to a specific type of shape. A list is shown below:
+
+```{=html}
+<style>
+/* Center the table and force it to be narrow */
+table {
+  width: auto !important;
+  margin-left: auto !important; /* Changed from 0 to auto */
+  margin-right: auto !important;
+  border-collapse: collapse;
+}
+
+/* Tighten cell spacing */
+table.table td, table.table th {
+  padding: 2px 8px !important; 
+  white-space: nowrap !important;
+  font-size: 0.85em;
+  vertical-align: middle !important;
+  text-align: center; /* Centers text and images within the cells */
+}
+
+/* Ensure the Shape images stay small */
+img {
+  height: 30px !important;
+  width: auto;
+  display: block;
+  margin: auto;
+}
+</style>
+```
+
+```{r, echo=FALSE, include=FALSE}
+dir.create("shapes", showWarnings = FALSE)
+shape_names <- data.frame(
+  ID = 0:15,
+  Name = c("Square [hollow]", "Circle [hollow]", "Triangle [hollow]", 
+           "Plus [line]", "Cross [line]", "Diamond [hollow]", 
+           "Triangle (inverted) [hollow]", "Square (cross) [combined]", 
+           "Star (asterisk) [line]", "Diamond (plus) [combined]", 
+           "Circle (plus) [combined]", "Hexagram (star) [combined]", 
+           "Square (plus) [combined]", "Circle (cross) [combined]", 
+           "Square (triangle) [combined]", "Square (filled) [solid]"))
+
+# 2. Generate Images
+for(i in 0:15) {
+  p <- ggplot() + 
+    geom_point(aes(0,0), shape = i, size = 3, stroke = 0.5) + 
+    theme_void() +
+    theme(plot.margin = margin(0,0,0,0, "pt")) 
+  
+  ggsave(sprintf("shapes/s%s.png", i), p, width = 0.2, height = 0.2)
+}
+
+# Print the skinny table
+cat("| ID | Vis | Name |\n")
+cat("|:--:|:---:|:---|\n")
+
+for(i in 0:15) {
+  cat(sprintf("| %s | ![](shapes/s%s.png) | %s |\n", 
+              shape_names$ID[i+1], i, shape_names$Name[i+1]))
+}
+```
+
+| ID  |        Shape        | Name                        |
+|:---:|:-------------------:|:----------------------------|
+|  0  | ![](shapes/s0.png)  | Square \[hollow\]           |
+|  1  | ![](shapes/s1.png)  | Circle \[hollow\]           |
+|  2  | ![](shapes/s2.png)  | Triangle \[hollow\]         |
+|  3  | ![](shapes/s3.png)  | Plus \[line\]               |
+|  4  | ![](shapes/s4.png)  | Cross \[line\]              |
+|  5  | ![](shapes/s5.png)  | Diamond \[hollow\]          |
+|  6  | ![](shapes/s6.png)  | Triangle (inv) \[hollow\]   |
+|  7  | ![](shapes/s7.png)  | Square (cross) \[combined\] |
+|  8  | ![](shapes/s8.png)  | Star \[line\]               |
+|  9  | ![](shapes/s9.png)  | Diamond (plus) \[combined\] |
+| 10  | ![](shapes/s10.png) | Circle (plus) \[combined\]  |
+| 11  | ![](shapes/s11.png) | Hexagram \[combined\]       |
+| 12  | ![](shapes/s12.png) | Square (plus) \[combined\]  |
+| 13  | ![](shapes/s13.png) | Circle (cross) \[combined\] |
+| 14  | ![](shapes/s14.png) | Square (tri) \[combined\]   |
+| 15  | ![](shapes/s15.png) | Square \[solid\]            |
+
+# GGplot2
+
+## Themes
+
+## Summarize
