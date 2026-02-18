@@ -210,5 +210,3 @@ for(i in 0:15) {
 ## Themes
 
 ## Summarize
-
-## banana
