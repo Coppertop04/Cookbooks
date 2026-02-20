@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dylan M. Ayres, Jacob A. Serrano, Dr.&nbsp;Amy Wiles">
-<meta name="dcterms.date" content="2026-02-17">
+<meta name="dcterms.date" content="2026-02-20">
 
 <title>Chapter 1: Introduction to RStudio – Comprehensive Guide to Bioinformatics in R</title>
 <style>
@@ -278,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 17, 2026</p>
+      <p class="date">February 20, 2026</p>
     </div>
   </div>
   
@@ -290,12 +290,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Hello and welcome to the Complete Guide to R for Bioinformatics! In this cookbook, we will be discussing type of graphs that are useful for representing genomic data in RStudio. We will be guiding you throughout the coding processes and explaining what the lines of code do, such that you will be able to create representations of your data regardless of experience with R.</p>
-<p>In this chapter of the cookbook, we will be discussing fundamental concepts of RStudio to prepare you for more complex code later in this resource. The <em>FIRST</em> priority when building a code is installing and/or loading code functions called <code>libraries</code>. You might be thinking, “What are libraries?” Well, libraries are collections of coded functions and arguments that are combined together. In many cases, these packages can be installed to perform new processes that RStudio is not inherently capable of. In other cases, it may take a more complex process through base R and make the process easier or less intensive. The way we install libraries is using a function called <code>install.packages("")</code> which is an inherent process in R. You might notice the two quotation marks that were located inside the parentheses. This is how we write names in R and we specify the packages that we want to install between the quotation marks, in this case.</p>
+<p>&nbsp; Hello and welcome to the Complete Guide to R for Bioinformatics! In this cookbook, we will be discussing type of graphs that are useful for representing genomic data in RStudio. We will be guiding you throughout the coding processes and explaining what the lines of code do, such that you will be able to create representations of your data regardless of experience with R.</p>
+<p>&nbsp; In this chapter of the cookbook, we will be discussing fundamental concepts of RStudio to prepare you for more complex code later in this resource. The <em>FIRST</em> priority when building a code is installing and/or loading code functions called <code>libraries</code>. You might be thinking, “What are libraries?” Well, libraries are collections of coded functions and arguments that are combined together. In many cases, these packages can be installed to perform new processes that RStudio is not inherently capable of. In other cases, it may take a more complex process through base R and make the process easier or less intensive. The way we install libraries is using a function called <code>install.packages("")</code> which is an inherent process in R. You might notice the two quotation marks that were located inside the parentheses. This is how we write names in R and we specify the packages that we want to install between the quotation marks, in this case.</p>
 <section id="running-libraries" class="level1">
 <h1>Running Libraries</h1>
-<p>To run a line you create, you can pres the command (for Mac) or control (for Windows) buttons and press enter (Windows) or return (Mac) at the same time. You can also click the “Run” button located in the top right of the main window of RStudio. These processes have the same result, which is to run the code you write line-by-line. This is a useful technique to learn, as it allows you to see where the error is occurring in your code. This makes it easier to try and debug any errors, warnings, etc. that may come up when creating code.</p>
-<p>After you run <code>install.packages("")</code>, you will also have to load the package. This is because the computer only installed the software you specified but the program has not been signaled to run. To enable the package we installed, we use the <code>library()</code> function. Notice how this time, there is no quotation marks in between the parentheses. This is because what we want the computer to search for is something installed in the Studio. This will be important for later in this resource when we create functions, graphs, and objects. For now, though, it is important to know that you need to insert the name of the package you want to load in between the parentheses and run the code. After you complete these steps, you should have an R script file similar to the chunk below:</p>
+<p>&nbsp; To run a line you create, you can pres the command (for Mac) or control (for Windows) buttons and press enter (Windows) or return (Mac) at the same time. You can also click the “Run” button located in the top right of the main window of RStudio. These processes have the same result, which is to run the code you write line-by-line. This is a useful technique to learn, as it allows you to see where the error is occurring in your code. This makes it easier to try and debug any errors, warnings, etc. that may come up when creating code.</p>
+<p>&nbsp; After you run <code>install.packages("")</code>, you will also have to load the package. This is because the computer only installed the software you specified but the program has not been signaled to run. To enable the package we installed, we use the <code>library()</code> function. Notice how this time, there is no quotation marks in between the parentheses. This is because what we want the computer to search for is something installed in the Studio. This will be important for later in this resource when we create functions, graphs, and objects. For now, though, it is important to know that you need to insert the name of the package you want to load in between the parentheses and run the code. After you complete these steps, you should have an R script file similar to the chunk below:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -303,19 +303,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="creating-objects" class="level1">
 <h1>Creating Objects</h1>
-<p>After running libraries, the next thing you will do is load in data, this can be found more in-depth in <a href="./File_download.html#reading-data"><strong>File Download Instructions</strong></a>. For this brief introduction, we will assume your data file is already in your Studio file window. When we load in R, the easiest way to store it for working purposes is to store the data as an object. Objects are data structures that will remain loaded in the RStudio project, that the computer can reference. When an object is created, it will be stored in the upper-right hand window of your Studio by its name and the amount of variables it has. Storing the data in this manner allows for easy callback and implementation with future functions without having to re-specify the type of data file in the future. An example of this will be shown below:</p>
+<p>&nbsp; After running libraries, the next thing you will do is load in data, this can be found more in-depth in <a href="./File_download.html#reading-data"><strong>File Download Instructions</strong></a>. For this brief introduction, we will assume your data file is already in your Studio file window. When we load in R, the easiest way to store it for working purposes is to store the data as an object. Objects are data structures that will remain loaded in the RStudio project, that the computer can reference. When an object is created, it will be stored in the upper-right hand window of your Studio by its name and the amount of variables it has. Storing the data in this manner allows for easy callback and implementation with future functions without having to re-specify the type of data file in the future. An example of this will be shown below:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The above line of code is reading a file type called <code>Comma Seperated Value</code>, where all data in columns are separated by commas. The data types are covered more in <a href="./File_download.html#reading-data"><strong>File Download Instructions</strong></a>. This <code>data</code> object can then be referenced later in code to display the data file as a table or to be used in summarizing functions, normalizing data, and/or graphing processes. Its important to understand that <em>every time</em> you make a new line of code to change what is in the object or change what is being stored in the object, you will have to re-run the line creating the object. Otherwise, the stored data in the object will not update. It is also important to know that if you use the same name for a new object as the name of another object, the previously stored information will be overwritten. So, it is recommended that you find a naming convention for data files, objects, and figures that will be understandable to yourself and/or your group mates.<br>
+<p>&nbsp; The above line of code is reading a file type called <code>Comma Seperated Value</code>, where all data in columns are separated by commas. The data types are covered more in <a href="./File_download.html#reading-data"><strong>File Download Instructions</strong></a>. This <code>data</code> object can then be referenced later in code to display the data file as a table or to be used in summarizing functions, normalizing data, and/or graphing processes. Its important to understand that <em>every time</em> you make a new line of code to change what is in the object or change what is being stored in the object, you will have to re-run the line creating the object. Otherwise, the stored data in the object will not update. It is also important to know that if you use the same name for a new object as the name of another object, the previously stored information will be overwritten. So, it is recommended that you find a naming convention for data files, objects, and figures that will be understandable to yourself and/or your group mates.<br>
 </p>
 </section>
 <section id="colors" class="level1">
 <h1>Colors</h1>
-<p>When you create graphs later in this cookbook, you will most likely want to use colors to designate points of significance, differentiate conditions from each other, and/or change the default colors of R to be in a colorblind friendly pallet.</p>
+<p>&nbsp; When you create graphs later in this cookbook, you will most likely want to use colors to designate points of significance, differentiate conditions from each other, and/or change the default colors of R to be in a colorblind friendly pallet.</p>
 <section id="naming-colors" class="level2">
 <h2 class="anchored" data-anchor-id="naming-colors">Naming Colors</h2>
-<p>To do this the easiest, you can simply use the name of the color you want to use. An example will be shown below</p>
+<p>&nbsp; To do this the easiest, you can simply use the name of the color you want to use. An example will be shown below</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="st">"red"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">"blue"</span></span>
@@ -324,14 +324,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="color-range" class="level2">
 <h2 class="anchored" data-anchor-id="color-range">Color range</h2>
-<p>Another option that we can use for colors is to use the name and a number afterwards. The colors would be variations of the strength of colors. This can be used to make a custom gradient or to specify hues of colors in regard to strength of expression. More of this is talked about in <a href="./Pheatmap.html"><em>Pheatmap</em></a>. This is mainly used in the white-black gradients</p>
+<p>&nbsp; Another option that we can use for colors is to use the name and a number afterwards. The colors would be variations of the strength of colors. This can be used to make a custom gradient or to specify hues of colors in regard to strength of expression. More of this is talked about in <a href="./Pheatmap.html"><em>Pheatmap</em></a>. This is mainly used in the white-black gradients</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="st">"grey10"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="hex-colors" class="level2">
 <h2 class="anchored" data-anchor-id="hex-colors">Hex Colors</h2>
-<p>Another way that we can specify colors using RStudio is to use the hex codes of the color that you want to use. This can be useful for using known and recognized colors for colorblind individuals without having to import extra packages and hope that the packages work together. To do so, you can follow the example below:</p>
+<p>&nbsp; Another way that we can specify colors using RStudio is to use the hex codes of the color that you want to use. This can be useful for using known and recognized colors for colorblind individuals without having to import extra packages and hope that the packages work together. To do so, you can follow the example below:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="st">"#304782"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">"#098246"</span></span>
@@ -340,23 +340,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="hues" class="level2">
 <h2 class="anchored" data-anchor-id="hues">Hues</h2>
-<p>The final way to specify a color that we will describe in this chapter is to use a package called <code>colorspace</code>. This allows us to specify certain hues of the color gradient to use. An example is shown below:</p>
+<p>&nbsp; The final way to specify a color that we will describe in this chapter is to use a package called <code>colorspace</code>. This allows us to specify certain hues of the color gradient to use. An example is shown below:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"colorspace"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(colorspace)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>my_color <span class="ot">&lt;-</span> <span class="fu">sequential_hcl</span>(<span class="dv">5</span>, <span class="at">palette =</span> <span class="st">"Blues"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This will produce an object with a hex color code. The hex color code for the above shade of blue is shown below:</p>
+<p>&nbsp; This will produce an object with a hex color code. The hex color code for the above shade of blue is shown below:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="st">"#7FABD3"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Most default colors in R can be found using the <a href="https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf"><em>R color cheatsheet</em></a><br>
+<p>&nbsp; Most default colors in R can be found using the <a href="https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf"><em>R color cheatsheet</em></a><br>
 </p>
 </section>
 </section>
 <section id="shapes" class="level1">
 <h1>Shapes</h1>
-<p>In later chapters, we will use shapes to be able to determine specific points from others, or to change how the data looks on a graph. In most cases, we will do so using a <code>shape =</code> argument. Instead of being able to specify a type of shape, we will have to use numbers assigned to a specific type of shape. A list is shown below:</p>
+<p>&nbsp; In later chapters, we will use shapes to be able to determine specific points from others, or to change how the data looks on a graph. In most cases, we will do so using a <code>shape =</code> argument. Instead of being able to specify a type of shape, we will have to use numbers assigned to a specific type of shape. A list is shown below:</p>
 <style>
 /* Center the table and force it to be narrow */
 table {
@@ -477,8 +477,35 @@ img {
 </section>
 <section id="ggplot2" class="level1">
 <h1>GGplot2</h1>
+<p>&nbsp; Most of the information we have talked about so far have been base functions that are in RStudio. Now, we will talk about common functions that are used in later chapters of this cookbook. These functions are usually contained in a package called <code>ggplot2</code>. <code>ggplot2</code> is a package that contains multiple methods for visualization of data, and is the main package for many graphs that we will create.</p>
+<p>&nbsp; The previous sub-chapter of <a href="./Intro.html#shapes"><em>Shapes</em></a> has a functionality in <code>ggplot2</code> as well, in the argument of <code>geom_point()</code>. This arguments creates points on graphs, and is explained more in the <a href="./Box and Whisker.html#geompoint"><em><code>geom_point()</code></em></a> sub-chapter of <a href="Box and whisker.qmd"><em>Chapter 9</em></a>. Of course, you will have to use the <code>ggplot()</code> argument to create a plot window for these <code>geom_point()</code> to plot data onto. If you are interested in learning more about plotting points on a graph, I recommend looking into chapters <a href="./Scatter.html"><em>4</em></a> and <a href="./Box and Whisker.html"><em>9</em></a>.</p>
+<p>&nbsp; Now that we have covered shapes, we should discuss the stylization of your graphs. While in later chapters you will learn how to modulate the style of lines, points, and arrangement of graphs, there is another aspect of the graph style called <strong><em>themes</em></strong>. A theme is a style of the overall graph appearance. Themes can change background color, line thickness and shade, and legend styles. It is a very useful way to make your graphs appear more professional or make your data be more visible on a background.</p>
 <section id="themes" class="level2">
 <h2 class="anchored" data-anchor-id="themes">Themes</h2>
+<p>&nbsp; In RStudio, there is a default theme that is applied to graphs when no theme is specified. This theme is <code>theme_gray()</code>. You can use a code structure similar to that of the code window shown below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mtcars2 <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>wt, <span class="at">y=</span>mpg, <span class="at">color=</span>gear))<span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Fuel economy declines as weight increases"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"(1973-74)"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Data from the 1974 Motor Trend US magazine."</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">tag =</span> <span class="st">"Figure 1"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Weight (1000 lbs)"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Fuel economy (mpg)"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Gears"</span>)<span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Intro_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="summarize" class="level2">
 <h2 class="anchored" data-anchor-id="summarize">Summarize</h2>

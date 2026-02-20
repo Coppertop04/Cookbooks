@@ -28,7 +28,6 @@ library(tidyverse)
 library(ggplot2)
 library(kableExtra)
 library(ggrepel)
-library(here)
 ```
 
 # Base R - Box and Whisker
@@ -241,9 +240,8 @@ df_bw %>%
 
 Another way to customize your outliers in your box plots is to create a custom label for your outlier. In this case, we will be using a new data file, known as `df_test` with more than one outlier in the total data set.
 
-
 ```{r Secondary Outlier Creation, include=FALSE, echo=FALSE}
-df_test <- read.csv("dataframe_bw.csv") 
+df_test <- read.csv("df_bw.csv")
 ```
 
 The first step is to create a flag for our outliers. To do this, we group the data by our `conditions`, then calculate the Q1 and Q3 levels of absorbance. Afterwards, we calculate the IQR and create the fenced. Then, we check the absorbance of all data to see if there is outlier above or below the fences. Finally, we ungroup the data so it can be used in a later step.

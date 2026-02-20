@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Table of Contents",
     "section": "",
-    "text": "Document\nKey Focus\nStatues\n\n\n\n\nChapter 1  └ Running Libraries  └ Creating Objects  └ Colors  └ Numbers  └ Shapes\nIntroducing Core Concepts in R\nUnder Construction\n\n\nChapter 2  └ Functions in R     └ Installing Packages (Tidy)  └ Reading Data     └ Reading Data From Files     └ Importing GEO Files        └ Installing httr2  └ Using GEOquery     └ Fetching Data     └ Working with CEL\nExplaining File Importing to R\nNeeds Finalizing\n\n\nChapter 3  └ File Download & Packages  └ Creating a Data Frame  └ Pivoting a Data Set    └ Pivot Longer    └ Pivot Wider\nRotating Data Frames\nComplete\n\n\nChapter 4  └ Basic Scatter    └ Large Scatter  └ Customized Scatter    └ Colorization      └ Standard Error Band        └ Labeling Outliers    └ Error Bars    └ Log 10 Scatter Small    └ Log 10 Scatter Big    └ 1.5 M bubble      └ Coloring Outside Bubble\nCreating Scatter Plots in R\nNeeds Finalizing\n\n\nChapter 5  └ Chapter Overview  └ Packages  └ Labeling Your Data  └ Creating a Volcano Plot  └ Combined Graphs w/ Legends  └ Combined Graphs w/ Unified Legend    └ Row Labels    └ Column Labels    └ Combining  └ Labeling  └ Combined w/ Labels  └ Logarithmic Scale\nRepresenting Significance of Data in R\nNeeds Finalizing\n\n\nChapter 6  └ Libraries\nCreating Graphical Lines in R\nNeeds Finalizing\n\n\nChapter 7 \nCreating Trend Lines in R\nNeeds Finalizing\n\n\nChapter 8  └ Simple Kernel  └ Kernel Customizaiton    └ Log 10 Kernel    └ Line Thickness    └ Filtering    └ Adjustment    └ Kernel Line Type    └ Kernel Faceting\nCreating Lines Based on Density of Data\nNeeds Finalizing\n\n\nChapter 9  └Chapter Introduction    └ Installing R and Library Loading  └ Base R - Box and Whisker    └ Simple Boxplot    └ Customization in Base R  └ ggplot2    └ Simple ggplot2 Box Plot      └ Data Creation    └ Customizing ggplot2      └ Basic Customization        └ Creating an Order        └ geom_point        └ Outliers          └ Outlier Labeling        └ geom_jitter      └ aes Customization        └ Coloring Your Box Plot          └ Multi Filtered        └ geom_boxplot Line Types        └ log10 Boxplots      └ Box Plot Parameters        └ Boxplot Fences        └ Width of Box Plots          └ Variable Widths        └ Creating a Median Line        └ Coordinate Flip\nCreating Box and Whisker Plots in R\nComplete\n\n\nChapter 10  └ Violin  └ Violin Modification    └ Scale    └ Trim    └ Quantiles    └ Error    └ Mean    └ Violin and Boxplot    └ Violin and Sina      └ Sina\nCreating Plots Violin Plots in R\nNeeds Finalizing\n\n\nChapter 11  └ What is a heat map  └ Packages  └ Data View  └ Pheatmap    └ Clustering/Dendogram Control    └ Creating Gaps    └ Graph Color Annotation    └ Condition Annotation    └ Subset Annotation\nCreating Heatmaps of Expression in R\nComplete\n\n\nChapter 12  └ Libraries  └ Combinations    └ Outlier\nCreating a combination of Plots in R\nNeeds Finalizing",
+    "text": "Document\nKey Focus\nStatues\n\n\n\n\nChapter 1  └ Running Libraries  └ Creating Objects  └ Colors    └ Naming Colors    └ Color Range,br.    └ Hex Colors    └ Hues  └ Shapes  └ GGplot2    └ Themes    └ Summarize\nIntroducing Core Concepts in R\nUnder Construction\n\n\nChapter 2  └ Functions in R     └ Installing Packages (Tidy)  └ Reading Data     └ Reading Data From Files     └ Importing GEO Files        └ Installing httr2  └ Using GEOquery     └ Fetching Data     └ Working with CEL\nExplaining File Importing to R\nNeeds Finalizing\n\n\nChapter 3  └ File Download & Packages  └ Creating a Data Frame  └ Pivoting a Data Set    └ Pivot Longer    └ Pivot Wider\nRotating Data Frames\nComplete\n\n\nChapter 4  └ Basic Scatter    └ Large Scatter  └ Customized Scatter    └ Colorization      └ Standard Error Band        └ Labeling Outliers    └ Error Bars    └ Log 10 Scatter Small    └ Log 10 Scatter Big    └ 1.5 M bubble      └ Coloring Outside Bubble\nCreating Scatter Plots in R\nNeeds Finalizing\n\n\nChapter 5  └ Chapter Overview  └ Packages  └ Labeling Your Data  └ Creating a Volcano Plot  └ Combined Graphs w/ Legends  └ Combined Graphs w/ Unified Legend    └ Row Labels    └ Column Labels    └ Combining  └ Labeling  └ Combined w/ Labels  └ Logarithmic Scale\nRepresenting Significance of Data in R\nNeeds Finalizing\n\n\nChapter 6  └ Libraries\nCreating Graphical Lines in R\nNeeds Finalizing\n\n\nChapter 7 \nCreating Trend Lines in R\nNeeds Finalizing\n\n\nChapter 8  └ Simple Kernel  └ Kernel Customizaiton    └ Log 10 Kernel    └ Line Thickness    └ Filtering    └ Adjustment    └ Kernel Line Type    └ Kernel Faceting\nCreating Lines Based on Density of Data\nNeeds Finalizing\n\n\nChapter 9  └Chapter Introduction    └ Installing R and Library Loading  └ Base R - Box and Whisker    └ Simple Boxplot    └ Customization in Base R  └ ggplot2    └ Simple ggplot2 Box Plot      └ Data Creation    └ Customizing ggplot2      └ Basic Customization        └ Creating an Order        └ geom_point        └ Outliers          └ Outlier Labeling        └ geom_jitter      └ aes Customization        └ Coloring Your Box Plot          └ Multi Filtered        └ geom_boxplot Line Types        └ log10 Boxplots      └ Box Plot Parameters        └ Boxplot Fences        └ Width of Box Plots          └ Variable Widths        └ Creating a Median Line        └ Coordinate Flip\nCreating Box and Whisker Plots in R\nComplete\n\n\nChapter 10  └ Violin  └ Violin Modification    └ Scale    └ Trim    └ Quantiles    └ Error    └ Mean    └ Violin and Boxplot    └ Violin and Sina      └ Sina\nCreating Plots Violin Plots in R\nNeeds Finalizing\n\n\nChapter 11  └ What is a heat map  └ Packages  └ Data View  └ Pheatmap    └ Clustering/Dendogram Control    └ Creating Gaps    └ Graph Color Annotation    └ Condition Annotation    └ Subset Annotation\nCreating Heatmaps of Expression in R\nComplete\n\n\nChapter 12  └ Libraries  └ Combinations    └ Outlier\nCreating a combination of Plots in R\nNeeds Finalizing",
     "crumbs": [
       "Table of Contents"
     ]
@@ -114,7 +114,7 @@
     "href": "Intro.html#naming-colors",
     "title": "Chapter 1: Introduction to RStudio",
     "section": "Naming Colors",
-    "text": "Naming Colors\nTo do this the easiest, you can simply use the name of the color you want to use. An example will be shown below\n\n\"red\"\n\"blue\"\n\"green\"",
+    "text": "Naming Colors\n  To do this the easiest, you can simply use the name of the color you want to use. An example will be shown below\n\n\"red\"\n\"blue\"\n\"green\"",
     "crumbs": [
       "Chapter 1: Introduction to RStudio"
     ]
@@ -124,7 +124,7 @@
     "href": "Intro.html#color-range",
     "title": "Chapter 1: Introduction to RStudio",
     "section": "Color range",
-    "text": "Color range\nAnother option that we can use for colors is to use the name and a number afterwards. The colors would be variations of the strength of colors. This can be used to make a custom gradient or to specify hues of colors in regard to strength of expression. More of this is talked about in Pheatmap. This is mainly used in the white-black gradients\n\n\"grey10\"",
+    "text": "Color range\n  Another option that we can use for colors is to use the name and a number afterwards. The colors would be variations of the strength of colors. This can be used to make a custom gradient or to specify hues of colors in regard to strength of expression. More of this is talked about in Pheatmap. This is mainly used in the white-black gradients\n\n\"grey10\"",
     "crumbs": [
       "Chapter 1: Introduction to RStudio"
     ]
@@ -134,7 +134,7 @@
     "href": "Intro.html#hex-colors",
     "title": "Chapter 1: Introduction to RStudio",
     "section": "Hex Colors",
-    "text": "Hex Colors\nAnother way that we can specify colors using RStudio is to use the hex codes of the color that you want to use. This can be useful for using known and recognized colors for colorblind individuals without having to import extra packages and hope that the packages work together. To do so, you can follow the example below:\n\n\"#304782\"\n\"#098246\"\n\"#982157\"",
+    "text": "Hex Colors\n  Another way that we can specify colors using RStudio is to use the hex codes of the color that you want to use. This can be useful for using known and recognized colors for colorblind individuals without having to import extra packages and hope that the packages work together. To do so, you can follow the example below:\n\n\"#304782\"\n\"#098246\"\n\"#982157\"",
     "crumbs": [
       "Chapter 1: Introduction to RStudio"
     ]
@@ -144,7 +144,7 @@
     "href": "Intro.html#hues",
     "title": "Chapter 1: Introduction to RStudio",
     "section": "Hues",
-    "text": "Hues\nThe final way to specify a color that we will describe in this chapter is to use a package called colorspace. This allows us to specify certain hues of the color gradient to use. An example is shown below:\n\ninstall.packages(\"colorspace\")\nlibrary(colorspace)\nmy_color &lt;- sequential_hcl(5, palette = \"Blues\")[3]\n\nThis will produce an object with a hex color code. The hex color code for the above shade of blue is shown below:\n\n\"#7FABD3\"\n\nMost default colors in R can be found using the R color cheatsheet",
+    "text": "Hues\n  The final way to specify a color that we will describe in this chapter is to use a package called colorspace. This allows us to specify certain hues of the color gradient to use. An example is shown below:\n\ninstall.packages(\"colorspace\")\nlibrary(colorspace)\nmy_color &lt;- sequential_hcl(5, palette = \"Blues\")[3]\n\n  This will produce an object with a hex color code. The hex color code for the above shade of blue is shown below:\n\n\"#7FABD3\"\n\n  Most default colors in R can be found using the R color cheatsheet",
     "crumbs": [
       "Chapter 1: Introduction to RStudio"
     ]
@@ -554,7 +554,7 @@
     "href": "Intro.html#themes",
     "title": "Chapter 1: Introduction to RStudio",
     "section": "Themes",
-    "text": "Themes",
+    "text": "Themes\n  In RStudio, there is a default theme that is applied to graphs when no theme is specified. This theme is theme_gray(). You can use a code structure similar to that of the code window shown below:\n\nmtcars2 %&gt;% \n  ggplot(aes(x=wt, y=mpg, color=gear))+\n  geom_point()+\n  labs(\n    title = \"Fuel economy declines as weight increases\",\n    subtitle = \"(1973-74)\",\n    caption = \"Data from the 1974 Motor Trend US magazine.\",\n    tag = \"Figure 1\",\n    x = \"Weight (1000 lbs)\",\n    y = \"Fuel economy (mpg)\",\n    color = \"Gears\")+\n  theme_gray()",
     "crumbs": [
       "Chapter 1: Introduction to RStudio"
     ]
