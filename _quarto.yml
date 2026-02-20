@@ -3,8 +3,8 @@ project:
   output-dir: docs
 
 website:
-  title: "Comprehensive Guide to Bioinformatics in R"
   sidebar:
+    title: "Comprehensive Guide to Bioinformatics in R"
     style: "docked"
     search: true
     contents:
