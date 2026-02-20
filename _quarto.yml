@@ -7,7 +7,7 @@ website:
     title: "Comprehensive Guide to Bioinformatics in R"
     style: "docked"
     search: true
-    contents:
+    buttons:
       - index.qmd
       - text: "&nbsp;"
       - text: "Chapter 1"
@@ -37,7 +37,7 @@ website:
   
 format:
   html:
-    theme: simplex
+    theme: articulate
     toc: true
     toc-depth: 5
     toc-location: right
