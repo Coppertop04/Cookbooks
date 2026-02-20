@@ -37,8 +37,9 @@ website:
   
 format:
   html:
-    theme: articulate
+    theme: readable
     toc: true
+    toc-position: right
     toc-depth: 5
     toc-fixed: true
     toc-title: "In this chapter:"  
