@@ -18,7 +18,7 @@ website:
       - Line.qmd
       - Sparkline.qmd
       - Kernel.qmd
-      - Box and Whisker.qmd
+      - "Box and Whisker.qmd"
       - Violin.qmd
       - Pheatmap.qmd
       - Hydra.qmd
