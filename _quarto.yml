@@ -39,7 +39,7 @@ format:
   html:
     theme: 
       light: lux
-      dark: darkly
+      dark: cyborg
     toc: true
     toc-depth: 5
     toc-fixed: true
