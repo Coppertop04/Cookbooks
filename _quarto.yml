@@ -25,7 +25,7 @@ website:
   
 format:
   html:
-    theme: readable
+    theme: simplex
     toc: true
     toc-depth: 5
     toc-location: right

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dylan M. Ayres, Jacob A. Serrano, Dr.&nbsp;Amy Wiles">
-<meta name="dcterms.date" content="2026-02-17">
+<meta name="dcterms.date" content="2026-02-20">
 
 <title>Chapter 5: Volcano Plots – Comprehensive Guide to Bioinformatics in R</title>
 <style>
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-db520ea6ce63fd5b8590e847b32fb8e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-25f8d1eac231d0159c06a553c27da572.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -131,9 +132,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">Comprehensive Guide to Bioinformatics in R</a> 
-    </div>
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
@@ -272,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 17, 2026</p>
+      <p class="date">February 20, 2026</p>
     </div>
   </div>
   
@@ -292,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Packages</h1>
 <p>For this type of graph, we will be using some of the same packages as previous chapters. All libraries are shown in the code window below</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -307,19 +307,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"grid"</span>)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scales"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="labeling-your-data" class="level1">
 <h1>Labeling Your Data</h1>
 <p>Before we begin creating volcano plots, it is important to ensure that we label our data to determine what values are significant and which values are not significant. To do this, we will use the <code>mutate()</code> function to add a new column to our dataset with the labels. The code window below shows how this is done.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>BSQN_LN_SD__volcano <span class="ot">&lt;-</span> df_volcano_filtered <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>BSQN_LN_SD__volcano <span class="ot">&lt;-</span> df_volcano_filtered <span class="sc">%&gt;%</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diffexpressed =</span> <span class="fu">case_when</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    LN_SD_M_values <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> BSQN_p_values_LN <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">~</span> <span class="st">"Up"</span>,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    LN_SD_M_values <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> BSQN_p_values_LN <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">~</span> <span class="st">"Down"</span>,</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"No"</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Breaking down this code, we are taking a data set and adding a new column called <code>diffexpressed</code>. In that column, we are specifying that in the cases when the M values are greater than 1 and the p values are less than 0.05 (for significance) the value should be labeled “Up”. This is to simply provide a label for upregulated data points in this condition, as compared to the control condition that are statistically significant. We also provide a specification for the opposite effect and label it “Down” to signify downregulation of a gene between the control condition and this condition. The last line states that if there is data that does not fit these two criteria lines, it should be labeled “No” for no difference. This will be useful for specifying points in the volcano plot to be colored differently to visually represent the upregulated genes.</p>
 </section>
@@ -327,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Creating a Volcano Plot</h1>
 <p>Now we will use the ggplot2 package functionality to create a volcano plot. To do this, we will use the <code>aes()</code> argument in the <code>ggplot()</code> function to orient our two sets of values. Following this, we will use the functions for <code>geom_hline()</code> and <code>geom_vline()</code> to create a visual guide to areas where data would be significant. The code example below shows all function used to create the violin plot</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>BSQN_LN <span class="ot">&lt;-</span><span class="fu">ggplot</span>(BSQN_LN_SD_volcano, <span class="fu">aes</span>(<span class="at">x=</span>LN_SD_M_values, <span class="at">y =</span> <span class="sc">-</span><span class="fu">log10</span>(BSQN_p_values_LN), <span class="at">color =</span> diffexpressed))<span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>BSQN_LN <span class="ot">&lt;-</span><span class="fu">ggplot</span>(BSQN_LN_SD_volcano, <span class="fu">aes</span>(<span class="at">x=</span>LN_SD_M_values, <span class="at">y =</span> <span class="sc">-</span><span class="fu">log10</span>(BSQN_p_values_LN), <span class="at">color =</span> diffexpressed))<span class="sc">+</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">size =</span> <span class="fl">1.5</span>)<span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">0.05</span>), <span class="at">linetype=</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
@@ -336,7 +336,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"-log10 p value"</span>,</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Expression status"</span>)<span class="sc">+</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In the code window above, we specified the M values on the x axis, the -log10 of the p values on the y axis, and color to be related to the <code>diffexpressed</code> column values. After that, the <code>geom_hline()</code> function creates a dashed line as a distinction for significance at the -log 10 of 0.05. The <code>geom_vline()</code> functoin creates vertical dashed lines at -1 and 1 to represent where differences between the condition and the control condition in terms of expression. The <code>scale_color_manual()</code> function creates a custom scale that uses the expression status column created before to color up- and down-regulated expression of genes. The visual of this is shown below:</p>
 <div class="cell">
@@ -353,14 +353,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Combined Graphs w/ Legends</h1>
 <p>Sometimes, when there are multiple conditions, we might want to arrange graphs together to be able to examine multiple conditions. One way that we can do this is to use <code>grid.arrange()</code> to combine multiple objects of violin plots. In this case, we will be combining these graphs by conditions in the columns and by analysis type in the rows.An example of this is shown below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  BSQN_LN, BSQN_LS, Cellhts2_LN, Cellhts2_LS, </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">2</span>,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">top =</span> <span class="fu">textGrob</span>(<span class="st">"Limited Nitrogen                     Limited Sulfur"</span>, </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">14</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>)),</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">left =</span> <span class="fu">textGrob</span>(<span class="st">"Cellhts2                  BSQN"</span>, </span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">rot =</span> <span class="dv">90</span>, <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">14</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>))</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -379,12 +379,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="row-labels">Row Labels</h2>
 <p>In this case, we are going to use aspects of the <code>patchwork</code> package to combine multiple plots and create a cleaner graph. Before we combine the graph, we first need to specify our row and column labels. To do so, we will create a new object under <code>ggplot</code> that contains an annotation. This will be used later to provide a title for our rows or columns. An example of a row label is shown below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>row1_label <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">label =</span> <span class="st">"BSQN"</span>, <span class="at">fontface =</span> <span class="dv">2</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">size =</span> <span class="dv">5</span>)<span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>row1_label <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">label =</span> <span class="st">"BSQN"</span>, <span class="at">fontface =</span> <span class="dv">2</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">size =</span> <span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>After creating our row label, we need to create an object with a spacer so that we can display our row names and not interfere with our plots. To do this, we will create a new object called <code>left-col</code> to seperate row names from graphs. An example is shown below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>left_col <span class="ot">&lt;-</span> <span class="fu">plot_spacer</span>() <span class="sc">/</span> row1_label <span class="sc">/</span> row2_label <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">heights =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>left_col <span class="ot">&lt;-</span> <span class="fu">plot_spacer</span>() <span class="sc">/</span> row1_label <span class="sc">/</span> row2_label <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">heights =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This line of code specifies an empty cell followed by two row labels. Afterwards, the layouts of the spacer and labels were changed so that the empty space had a smaller height and the row labels displayed at their full length.<br>
 </p>
@@ -393,10 +393,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="column-labels">Column Labels</h2>
 <p>Now that we have created the row labels and spacers, we need to create the labels for columns. While creating the labels for our columns, we can also add the graphs we made previously to the new object. An example of this is shown below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>col_nitrogen <span class="ot">&lt;-</span> (<span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> <span class="st">"Limited Nitrogen"</span>, <span class="at">fontface =</span> <span class="dv">2</span>, <span class="at">size =</span> <span class="dv">5</span>)<span class="sc">+</span> <span class="fu">theme_void</span>())<span class="sc">/</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>col_nitrogen <span class="ot">&lt;-</span> (<span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> <span class="st">"Limited Nitrogen"</span>, <span class="at">fontface =</span> <span class="dv">2</span>, <span class="at">size =</span> <span class="dv">5</span>)<span class="sc">+</span> <span class="fu">theme_void</span>())<span class="sc">/</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    BSQN_LN<span class="sc">/</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    Cellhts2_LN<span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_layout</span>(<span class="at">heights =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_layout</span>(<span class="at">heights =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This line of code creates a similar text annotation for the column name as the row names previously,and places the text over the <code>BSQN_LN</code> plot object.Then, the <code>Cellhts2_LN</code> object was placed under the annotation and other plot. Once again, the <code>plot_layout()</code> lines perform a similar action as in the row annotation.&nbsp;</p>
 </section>
@@ -404,9 +404,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="combining">Combining</h2>
 <p>Finally, we need to combine our plots, and the annotation column together. We will use a similar strategy as the previous two objects. This time, we will combine the <code>left_col</code> object, <code>col_nitrogen</code> object, and <code>col_sulfur</code> obejct in a “side-by-side” manner. Then, we will add an argument caled <code>guides</code> to collect the legend. Finally, we will specify the total legend position.An example is shown below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>final_plot <span class="ot">&lt;-</span> (left_col <span class="sc">|</span> col_nitrogen <span class="sc">|</span> col_sulfur) <span class="sc">+</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>final_plot <span class="ot">&lt;-</span> (left_col <span class="sc">|</span> col_nitrogen <span class="sc">|</span> col_sulfur) <span class="sc">+</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">guides =</span> <span class="st">'collect'</span>) <span class="sc">&amp;</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A reason why we may choose to use this configuration for creating a combined graph, is that it provides more customization for both annotations to the graphs, and how we choose to combine our graphs. It also provides an opportunity to collect the legends of all graphs and relocate them as one combined legend to a different area of the graph window in R. An example of the result is shown below:</p>
 <div class="cell">
@@ -424,7 +424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Labeling</h1>
 <p>When examining statistically significant values in the volcano plots, outliers are clearly visible. To understand if these outlier data sets are consistent throughout testing, we could label these values. We will do this in a similar way to that of the labels for Scatter plots, and use <code>geom_text_repel()</code> function. Below is an example line of code that you could add to the rest of your volcano pliot code to create these outlier labels:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_text_repel</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_text_repel</span>(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">subset</span>(BSQN_LN_SD__volcano, (LN_SD_M_values <span class="sc">&gt;</span><span class="dv">10</span> <span class="sc">|</span> LN_SD_M_values <span class="ot">&lt;-</span><span class="dv">10</span>)<span class="sc">&amp;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                  (<span class="sc">-</span><span class="fu">log10</span>(BSQN_p_values_LN) <span class="sc">&gt;</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">0.05</span>))),</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">label =</span> ORF),</span>
@@ -433,7 +433,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">max.overlaps =</span> <span class="cn">Inf</span>,</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">box.padding =</span> <span class="fl">0.5</span>,</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Breaking down the code line above, we are plotting a peice of text, using the data table <code>BSQN_LN_SD_volcano</code>. From there, we are subdividing the data into M values of greater than 10 and less than -10, with a <code>-log10</code> p value greater than the <code>-log10</code> p value of 0.05. From there, we make the label for this text using the column <code>ORF</code>, in the data set. For the data set we are using here, the <code>ORF</code> column is the one that contains the gene names/IDs being tested. From there, we specify the font size and style. The last 3 lines create rules for how many labels can be on screen (<code>Inf</code> means infinite), spacing between labels to prevent overlap on screen (0.5 in this case), and should there be an extra legend shown (we turn this to <code>FALSE</code> to prevent visual clutter on the graph). A complete volcano plot with this extra line of code included is shown below:</p>
 <div class="cell">
@@ -463,7 +463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Logarithmic Scale</h1>
 <p>In the earlier chapter of Scatter plots, we discussed how to create a <code>log10</code> break for the x and y axes. The <code>log10</code> break for the y axis is still applicable in this situation, but not for the x axis. In the case of volcano plots, we will need to create a new type of <code>log2</code> scale for the x axis. Below is an example of how we can do that:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>log2_minor_breaks <span class="ot">&lt;-</span> <span class="cf">function</span>(limits){</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>log2_minor_breaks <span class="ot">&lt;-</span> <span class="cf">function</span>(limits){</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  max_log <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">abs</span>(limits), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (max_log <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  powers <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="fu">ceiling</span>(max_log)</span>
@@ -474,15 +474,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  }))</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  all_breaks <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">c</span>(<span class="sc">-</span>minor_log_values, <span class="dv">0</span>, minor_log_values))</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  all_breaks[all_breaks <span class="sc">&gt;=</span> limits[<span class="dv">1</span>] <span class="sc">&amp;</span> all_breaks <span class="sc">&lt;=</span> limits[<span class="dv">2</span>]]</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Breaking down this section of code, we are creating a new function that gathers that gathers a minimum and maximum value of the table. While this function is running, it is also removing any <code>NA</code> data points. Then, it is creating a new object called <code>powers</code> where the value ranges from 0 to the maximum value of the data. Next, it creates a <code>minor_log</code> object to gather the lowest value on the <code>powers</code> list and the highest value on the <code>powers</code> list. Then, it subdivides that distance into 5 chuncks. The second to last line takes all the <code>minor_log</code> values and creates a range from positive <code>minor_log</code> to -<code>minor_log</code>. Finally, the last line tells the function to only apply to the start and end of the axis instead of the infinitie range.</p>
 <p>When inserting your new <code>log10</code> and <code>log2</code> functions into your volcano plot, make sure to specify which axis and that it is continuous. In this case, I will be showing an example of the <code>log2</code> function being applied to the x-axis. The following example is showing how to specify a range, major break values, and to create minor breaks using the <code>log2</code> function created earlier.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_continuous</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_continuous</span>(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">17</span>, <span class="dv">17</span>),</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">16</span>, <span class="dv">16</span>, <span class="at">by =</span> <span class="dv">2</span>),</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">minor_breaks =</span> log2_minor_breaks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">minor_breaks =</span> log2_minor_breaks)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now that we know how to add the <code>log10</code> and <code>log2</code> breaks to our graphs, we can create the combined graphs again and add our new minor breaks to them. An example is shown below:</p>
 <div class="cell" data-fig.fullwidth="true">
@@ -550,13 +550,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
