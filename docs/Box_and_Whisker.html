@@ -9,7 +9,7 @@
 <meta name="author" content="Dylan M. Ayres, Jacob A. Serrano, Dr.&nbsp;Amy Wiles">
 <meta name="dcterms.date" content="2026-02-20">
 
-<title>Box and Whisker</title>
+<title>Box and Whisker – Comprehensive Guide to Bioinformatics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,10 +74,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-30ae6b2e5328ac7375bd033934d6d19c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c3f2008c781572912d2344a94200f79e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-bee47689197182bcb0e72671dc4b8ae1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-c3f2008c781572912d2344a94200f79e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -109,12 +113,204 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="quarto-light">
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Box and Whisker</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+      <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -171,6 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -236,7 +433,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Base R - Simple Boxplot-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Base R - Simple Boxplot-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -466,7 +663,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Simple `ggplot`-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Simple `ggplot`-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -501,7 +698,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/geom_point-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/geom_point-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -531,7 +728,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/geom_point 15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/geom_point 15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -562,7 +759,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Outliers-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Outliers-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -603,7 +800,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Outliers labeled-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Outliers labeled-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -624,7 +821,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Jitter-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Jitter-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -640,7 +837,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/jittered without outlier-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/jittered without outlier-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -679,7 +876,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Jitter with colored &amp; labeled outlier-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Jitter with colored &amp; labeled outlier-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -699,7 +896,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Color ggplot-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Color ggplot-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -714,7 +911,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Filled Box Plots-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Filled Box Plots-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -794,7 +991,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/graphing multi filtered-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/graphing multi filtered-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -812,7 +1009,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Line Styling-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Line Styling-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -830,7 +1027,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Log 10 Box-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Log 10 Box-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -886,7 +1083,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Boxplot w/Flags-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Boxplot w/Flags-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -905,7 +1102,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Width-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Width-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -929,7 +1126,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Fence Widths-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Fence Widths-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -947,7 +1144,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/VarWidth-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/VarWidth-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -960,7 +1157,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/VarWidth Shown-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/VarWidth Shown-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -984,7 +1181,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Median representation-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Median representation-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1008,7 +1205,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Median graph-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Median graph-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1025,7 +1222,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Coordinate Flip-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Coordinate Flip-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1042,7 +1239,7 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Box-and-Whisker_files/figure-html/Ordering-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Box_and_Whisker_files/figure-html/Ordering-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1057,6 +1254,19 @@ Now that we have covered how to make a simple box plot, we will discuss how to a
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {

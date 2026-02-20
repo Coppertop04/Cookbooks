@@ -3,8 +3,8 @@ project:
   output-dir: docs
 
 website:
+  title: "Comprehensive Guide to Bioinformatics in R"
   sidebar:
-    title: "Comprehensive Guide to Bioinformatics in R"
     style: "docked"
     search: true
     content:
@@ -27,7 +27,7 @@ website:
       - text: "Chapter 8"
         file: Kernel.qmd
       - text: "Chapter 9"
-        file: "Box and Whisker.qmd"
+        file: Box_and_Whisker.qmd
       - text: "Chapter 10"
         file: Violin.qmd
       - text: "Chapter 11"
@@ -37,7 +37,9 @@ website:
   
 format:
   html:
-    theme: articulate
+    theme: 
+      light: lux
+      dark: darkly
     toc: true
     toc-depth: 5
     toc-fixed: true
