@@ -2,13 +2,7 @@
 title: "Chapter 6: Lineplot"
 author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
 date:   "'r Sys.Date()'"
-format:
-  html:
-    theme: simplex 
-    toc: true
-    toc-depth: 5
-    toc-expand: true
-    number-sections: false
+
 ---
 
 #Libraries

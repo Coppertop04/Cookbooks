@@ -3,20 +3,6 @@ title: "Chapter 1: Introduction to RStudio"
 date: last-modified
 date-fomrat: "MMM D"
 author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
-format:
-  html:
-    include-in-header:
-        - text: |
-            <style>
-            .hl-red {background-color: rgba( 255, 0, 0, 0.3); padding: 2px;}
-            .hl-blue {background-color: rgba( 0, 0, 255, 0.3); padding: 2px;}
-            .hl-green {background-color: rgba( 0, 255, 0, 0.3); padding: 2px;}
-            </style>
-    theme: simplex
-    toc: true
-    toc-depth: 5
-    toc-expand: true
-    number-sections: false
 ---
 
 ```{r packages, include=FALSE}

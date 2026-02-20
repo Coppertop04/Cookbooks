@@ -3,13 +3,7 @@ title: "Chatper 3: Pivoting"
 date: last-modified
 date-fomrat: "MMM D"
 author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
-format:
-  html:
-    theme: simplex 
-    toc: true
-    toc-depth: 5
-    toc-expand: true
-    number-sections: false
+
 ---
 
 # File Download & Packages
