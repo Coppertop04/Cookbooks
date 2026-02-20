@@ -191,7 +191,7 @@ for(i in 0:15) {
 | 14  | ![](shapes/s14.png) | Square (tri) \[combined\]   |
 | 15  | ![](shapes/s15.png) | Square \[solid\]            |
 
-# GGplot2
+# GGplot2 {#ggplot2}
 
   Most of the information we have talked about so far have been base functions that are in RStudio. Now, we will talk about common functions that are used in later chapters of this cookbook. These functions are usually contained in a package called `ggplot2`. `ggplot2` is a package that contains multiple methods for visualization of data, and is the main package for many graphs that we will create.
 
