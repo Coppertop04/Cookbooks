@@ -40,7 +40,6 @@ format:
     theme: articulate
     toc: true
     toc-depth: 5
-    toc-location: right
     toc-fixed: true
     toc-title: "In this chapter:"  
     numbered-sections: false
