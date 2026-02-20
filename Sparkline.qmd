@@ -1,5 +1,5 @@
 ---
-title: "Chapter 7: Sparkline"
+title: "Sparkline"
 date: last-modified
 date-fomrat: "MMM D"
 author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"

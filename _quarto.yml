@@ -10,18 +10,30 @@ website:
     contents:
       - index.qmd
       - text: "&nbsp;"
-      - Intro.qmd
-      - File_download.qmd
-      - Pivot.qmd
-      - Scatter.qmd
-      - Volcano.qmd
-      - Line.qmd
-      - Sparkline.qmd
-      - Kernel.qmd
-      - "Box and Whisker.qmd"
-      - Violin.qmd
-      - Pheatmap.qmd
-      - Hydra.qmd
+      - text: "Chapter 1"
+        file: Intro.qmd
+      - text: "Chapter 2"
+        file: File_download.qmd
+      - text: "Chapter 3"
+        file: Pivot.qmd
+      - text: "Chapter 4"
+        file: Scatter.qmd
+      - text: "Chapter 5"
+        file: Volcano.qmd
+      - text: "Chapter 6"
+        file: Line.qmd
+      - text: "Chapter 7"
+        file: Sparkline.qmd
+      - text: "Chapter 8"
+        file: Kernel.qmd
+      - text: "Chapter 9"
+        file: "Box and Whisker.qmd"
+      - text: "Chapter 10"
+        file: Violin.qmd
+      - text: "Chapter 11"
+        file: Pheatmap.qmd
+      - text: "Chapter 12"
+        file: Hydra.qmd
   
 format:
   html:

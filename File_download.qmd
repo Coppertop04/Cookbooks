@@ -1,5 +1,5 @@
 ---
-title: "Chapter 2: File Download Instructions"
+title: "File Download Instructions"
 date: last-modified
 date-fomrat: "MMM D"
 author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"

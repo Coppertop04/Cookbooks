@@ -1,5 +1,5 @@
 ---
-title: "Chapter 8: Kernel"
+title: "Kernel"
 date: last-modified
 date-fomrat: "MMM D"
 author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"

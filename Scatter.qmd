@@ -1,5 +1,5 @@
 ---
-title: "Chatper 4: Scatter Plots"
+title: "Scatter Plots"
 date: last-modified
 date-fomrat: "MMM D"
 author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
