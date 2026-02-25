@@ -1,0 +1,168 @@
+---
+title: "Violin"
+date: last-modified
+date-fomrat: "MMM D"
+author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
+
+---
+
+```{r Tidyverse, include=FALSE, echo=FALSE, message=FALSE, results='hide', warning=FALSE, error=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(kableExtra)
+library(ggrepel)
+library(ggforce)
+library(Hmisc)
+```
+
+```{r date conversion, include=FALSE, eval=FALSE}
+# 1. Get the path of the file currently open in RStudio
+current_path <- rstudioapi::getActiveDocumentContext()$path
+
+# 2. Extract the directory and base filename
+dir_name <- dirname(current_path)
+base_name <- "Violin" # The static part of your name
+
+# 3. Create the new name with today's date (e.g., "Jan_22")
+new_name <- paste0(base_name, ".qmd")
+new_path <- file.path(dir_name, new_name)
+
+# 4. Rename the file on the disk
+if (current_path != new_path) {
+  file.rename(current_path, new_path)
+  message("File renamed to: ", new_name)
+}
+```
+
+```{r ggplot2 Data, include=FALSE, echo=FALSE}
+Verification_Data <- readxl::read_excel("C:/Users/dylan/Documents/R development/Heatmap/Copy of Verification Data.xlsx")
+df_sina <- Verification_Data[-c(1:288),]
+delete_1 <- "_rep1$"
+delete_2 <- "_rep2$"
+delete_3 <- "_hr$"
+
+df_sina <- df_sina %>% 
+  separate(col = verification_position_hr, into = c("ver_pos", "_hr"), sep =) %>%
+  select(-matches(delete_1), -matches(delete_2), -matches(delete_3))
+
+df_sina <- df_sina[1:250, 1:8]
+
+df_sina <- df_sina %>%
+  rename_with(~ str_remove_all(., "^norm_"), everything()) %>%
+  rename_with(~ str_remove_all(., "_avg$"), everything())
+
+```
+
+```{r Pivoted Data}
+df_violin <- df_sina %>% 
+  pivot_longer(cols = !c(1:2),
+               names_to = "conditions",
+               values_to = "abs")
+df_bw_v <- df_sina[1:10, 1:8] %>% 
+  pivot_longer(cols = !c(1:2),
+               names_to = "conditions",
+               values_to = "abs")
+```
+
+# Violin
+
+```{r Simple violin ggplot}
+df_violin %>% 
+  ggplot(aes(x=conditions, y=abs))+
+  geom_violin()
+```
+[Jacob]{style="color: orange;"}: ggplot creates a violin plot with specified categories of independent variables ("conditions" in this case) on the x-axis and a continuous scale of dependent variable ("abs" in this case) on the y-axis.
+
+# Violin Modification
+
+## Scale
+
+```{r scale}
+df_violin %>% 
+  ggplot(aes(x=conditions, y=abs))+
+  geom_violin(scale = "count") # "count" , "width"
+```
+
+[Jacob]{style="color: orange;"}: Default for geom_violin is "area".
+       Defining scales: area = area of each violin proportional to # of observations; count = with of violin proportional to # of observations; width = width of each violin is set to the maximum width.
+       This means that "area" is the width of the graph alongside the height of the y-axis and is a function of the number of observations. "With" is the total width of the graph is set to the maximum number of values in the violin. "Count" is set where the total width of the violin is proportional to number of values in that violin y-axis.
+       
+## Trim
+
+```{r trim}
+df_violin %>% 
+  ggplot(aes(x=abs, y=conditions))+
+  geom_violin(trim = FALSE)#TRUE
+```
+[Jacob]{style="color: orange;"}: Default is "TRUE".
+     Defining trim: TRUE restricts violins to range of data (visually: cuts full violins only to range limits). FALSE releases violin restriction to data. 
+      Turning this off will cause the violin to extend past the range of the data and display inaccurate representations of your data. This representation is a prediction of the data outside of your range.
+
+## Quantiles
+
+```{r Qaunt Draw}
+df_violin%>% 
+  ggplot(aes(x=conditions, y=abs))+
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+```
+[Jacob]{style="color: orange;"}: Draw_quantiles requires a specified list. Off by default.
+        Defining quantiles: Can be any form of quantile, listed in code is 0.25 for min to Q1, 0.5 for Q1 to median, 0.75 for Median to Q3, final section is default from Q3 to max.
+        Any quantile can be made representative on this graph, but not all quantities. Quantities like average require a different solution.
+        
+## Error
+
+```{r summ stat}
+df_violin %>% 
+  ggplot(aes(x=conditions, y=abs))+
+  geom_violin()+
+  stat_summary(fun.data = "mean_sdl", geom = "errorbar", color = "red", width = 0.1)
+
+```
+[Jacob]{style="color:orange;"} Sum stats part of ggplot2, not Violin. Can be used with violin. Specify the value you are looking for.
+        Defining summ stats values: create a function (fun) argument and describe the application you desire. For standard deviation, it is "fun.data = mean_se". From there, you can specify the errorbar or point you want, the width (errorbar) or size (point) that you want, and the color of the added layer. For point, you can also change the shape.
+
+##Mean
+
+```{r df_bw}
+df_violin %>% 
+  ggplot(aes(x=conditions, y=abs))+
+  geom_violin()+
+  stat_summary(fun = mean, geom = "point", color = "red", size = 3, shape = 15)+
+  stat_summary(fun.data = "mean_sdl", geom = "errorbar", color = "blue", width = 0.5)
+```
+[Jacob]{style="color:orange;"}: This graph is the point version of the functions above where the stat_summary argument was applied.
+
+## Violin and Boxplot
+
+```{r}
+df_violin %>% 
+  ggplot(aes(x=conditions, y=abs))+
+  geom_violin(aes(fill = conditions))+
+  geom_boxplot(width = 0.1)
+```
+[Jacob]{style="color:orange;"}: geom_boxplot is ggplot2 package. Here we are just placing a thin (width = 0.1 times the normal size to fit in violins) boxplot. 
+      Defining geom_boxplot: look at B&W files (will link to Box and Whisker plot HTML in future)
+      We are using this boxplot as another method of viewing the median, Q1, and Q3 of the violins, like was done in "quantiles" section. This allows us to visibly see the distribution of the data and shows numerical values that are important for understanding relative results of the tests.
+
+## Violin and Sina
+
+```{r Sina}
+#install.packages("ggforce")
+
+df_violin %>% 
+  ggplot(aes(x=conditions, y=abs))+
+  geom_violin()+
+  geom_sina()
+```
+[Jacob]{style="color:orange;"}: Geom_sina is in ggforce package, not native to ggplot2. (Have to install new package)
+      Defining sina: sina is plotted data in a violin shape. This allows us to see the distribution of number of data points in the same way that a violin does, and also clearly shows outliers in the data sets.
+  
+### Sina  
+      
+```{r pure sina}
+df_violin %>% 
+  ggplot(aes(x=conditions, y=abs))+
+  geom_sina()
+```
+
+[Jacob]{style="color:orange;"}: This graph is purely the sina graph from ggforce. You can change more about the point shape, color, size, and labeling (especially for outliers) using a similar method to B&W.

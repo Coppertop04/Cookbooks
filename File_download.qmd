@@ -1,0 +1,266 @@
+---
+title: "File Download Instructions"
+date: last-modified
+date-fomrat: "MMM D"
+author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
+---
+
+
+
+Welcome to the RStudio cookbook for Bioinformatics! In this chapter, we will discuss setting up RStudio initially, and how to set a working directory for all of your files, graphs, and data. The first thing to do is go to "<https://posit.co/download/rstudio-desktop/>" and install both R and RStudio if you have not done so before. If you have previously installed these applications, ensure that they are updated to the most recent version.
+
+When working in RStudio, the first step is to create a file directory for your project. To do this, click on the "File" tab in the upper-lefthand corner. Once you have done so, click "New Project". If you have any work being done, ensure that the files are saved and updated. There should be a pop-up asking about the different directories you would like to use. You can click on the "New Directory" tab and assign the directory to a folder on your computer. The project will save all work done, code written, and data created to a file that can be reopened at any time. After you have done this, the next step is to create a new R script file.
+
+There should be an automatically created R script file in your studio. If not, click on the "File" tab and click "New File" and "R script". Here is where you will write most of your code and add objects to your environment. Ensure that you save the script and update it often, as otherwise data will be lost.
+
+# Functions in R
+
+Before we can introduce the data to the RStudio environment, we need to upload some packages to our RStudio project. The first package will be 'tidyverse', which allows us to create neat chunks of code for later functions and allows us to read in data. Below is a short description of what the tidyverse is:
+
+The tidyverse is a collection of R packages designed with the goal of making data science faster, easier, and more accessible. It introduces a consistent and simplified syntax that can often make your code more readable and easier to write. The packages inside the Tidyverse collection allow for ease of manipulation of data, visualization of data, and data analysis inside of R.
+
+## Installing Packages (Tidy)
+
+The tidyverse is a pre-built package in the RStudio, but learning how to install it will create a preface to installing more advanced packages. To install packages in R, use the `install.packages("")` function. In this function, you would place the name of the package you want to install into R inside the quotations. After installing the package, you then need to load it into the studio to be able to work with its functions. To do this, you would use the `library()` function. In this function, you would need to place the name of the package you want to load between the parentheses. An example using tidyverse is shown below:
+
+```{r Install_Tidyverse, message=TRUE, warning=FALSE, eval=FALSE}
+ install.packages("tidyverse") 
+
+library(tidyverse)
+```
+
+# Reading Data
+
+
+
+The next step is to have RStudio read the data that is in the Files tab, on the bottom right side of the console. There are many ways to do this depending on the file type and where your data can be found. For demonstration purposes, I will create a few files named "Data". All use the same data and will be used throughout this chapter as an example of reading data into the RStudio.
+
+```{r File creation, message=FALSE, warning=FALSE, include=TRUE, echo=TRUE, eval=FALSE}
+Gene_ID <- c("2401A01", "2401A03", "2401A04")
+
+Condition <- c("LS30-SD30", "LN20-SD30", "SD37-SD30")
+
+Hour <- c(1, 2, 3) 
+
+Data <- data.frame(Gene_ID, Condition, Hour)
+
+```
+
+```{r file creation, echo=FALSE}
+Gene_ID <- c("2401A01", "2401A03", "2401A04")
+
+Condition <- c("LS30-SD30", "LN20-SD30", "SD37-SD30")
+
+Hour <- c(1, 2, 3) 
+
+Data <- data.frame(Gene_ID, Condition, Hour)
+```
+
+```{r package intall (files), message = FALSE, warning = FALSE, echo = FALSE}
+library(openxlsx)
+write.xlsx(Data, file = "Data.xlsx")
+library(readr)
+write_delim(Data, file = "Data.txt")
+write.csv(Data, file = "Data.csv")
+```
+
+```{r packages, eval=FALSE}
+install.packages("openxlsx")
+library(openxlsx)
+install.packages("readr")
+library(readr)
+```
+
+```{r data no show, echo=FALSE, warning = FALSE, include=FALSE}
+Gene_ID <- c("2401A01", "2401A03", "2401A04")
+
+Condition <- c("LS30-SD30", "LN20-SD30", "SD37-SD30")
+
+Hour <- c(1, 2, 3) 
+
+Data <- data.frame(Gene_ID, Condition, Hour)
+
+library(readr)
+write_delim(Data, file = "Data.txt")
+```
+
+
+```{r data show}
+Data
+```
+
+## Reading Data From Files
+
+When learning how to read data from files, there are a few different ways of storing information, as shown above. In this section, we will work through using different functions and packages to import data into the RStudio environment (in the top right corner). The first method is using Excel files.
+
+When reading from an excel file, you will need to use the `read_excel` function in the `readxl` package. To do so, you will use the code `readxl::read_excel("")`, placing the name of the file in the quotations and assign it to an object, as seen below.
+
+```{r Reading_files, warning=FALSE}
+a <- readxl::read_excel("Data.xlsx")
+
+
+a
+```
+
+The second way that data is commonly stored is through CSV files. To import the data from the file to an object, you will use the `read.csv("")` function, placing the name of the file in the quotations. An example of this is shown below:
+
+```{r Reading_files-2}
+b <- read.csv("Data.csv")
+
+b
+```
+
+A third way that some data may be stored is through TXT files. To import the data from the file to an object, you will use the `read.delim("")` function, placing the name of the file in the quotations. An example of this is shown below:
+
+```{r Reading_files-3}
+ c <- read.delim("Data.txt")
+
+
+
+c
+```
+
+## Importing GEO Files
+
+In some cases, the data you might want to use is in the GEO database, in these cases, we need to install a few packages to import the data from the GEO database. The first package we need to install is called `BiocManager` from the Bioconductor website. This is so we can download other packages located under Bioconductor management. To install this package into your R script file, you will use the same concept as with the tidyverse. You will use the `install.packages("")` function and place `BiocManager` in the quotations. After you have installed the package, load the package into the RStudio. An example is shown below:
+
+```{r BioConductor, message=TRUE, results='hide', warning=FALSE, eval=FALSE}
+install.packages("BiocManager") 
+
+library(BiocManager)
+```
+```{r bioconductor install, warning=FALSE, message=FALSE, echo=FALSE, include=FALSE}
+library(BiocManager)
+```
+
+Now that we have installed the `BiocManager` package, we need to install a sub-package called `GEOquery`. This package contains functions that allow for the easy importing of GEO data into RStudio. This time, the installation process changes from the convention. To install the `GEOquery` package, use the `BiocManager::install("")` function. In the quotations, you will place `GEOquery`. Afterwards, you will use the same function to load the package into the RStudio. An example is shown below:
+
+```{r GEO_Query, message=FALSE, results='hide', warning=FALSE, eval=FALSE}
+ BiocManager::install("GEOquery") 
+
+library(GEOquery)
+```
+
+```{r GEOquery install, message=FALSE, echo=FALSE, include=FALSE, warning=FALSE}
+library(GEOquery)
+```
+### Installing 'httr2' {#install-httr2}
+
+Before importing the data from the GEO database, you might need to install an extra package, called `httr2`. This package allows RStudio to interact with web interfaces. In some versions of R, `GEOquery`, and `BiocManager` may not need this extra package. However, sometimes the ability to read from the web is left out, so installing the package is an important precaution. Here, we will use the same convention as with the tidyverse. An example is shown below:
+
+```{r NCBI GEO, message=TRUE, warning=FALSE, eval = FALSE}
+ install.packages("httr2")
+
+library(httr2)
+```
+
+```{r httr install, message=FALSE, warning=FALSE, echp=FALSE, include=FALSE}
+library(httr2)
+```
+## Using GEOquery
+
+### Fetching Data
+
+When you are ready to retrieve your data from NCBI GEO database, use the `getGEO` function in the `GEOquery` package. When using this function, there are two aspects you are mainly concerned with; the first is the name of the GEO file that you want to use in quotation marks of the `getGEO` function. The second is designating whether or not the data should be arranged into a matrix. If you want to create a matrix, use the command `GSEMatrix = TRUE`. An example of this is shown below:
+
+```{r Data-retrieval, message=TRUE, warning=FALSE, results = 'hide'}
+getGEO("GSE7473", GSEMatrix = TRUE)
+```
+
+### Working with CEL
+
+When you are working with GEO data, there may be times that the data is arranged in a CEL file. Before we can look at how to extract the data out of these files, we need to install three packages.
+
+-   The first is `affy`, which allows us to read the data in the CEL files and manipulate them.
+
+-   The second is `affyio`, which gives us more ways to work with the CEL files.
+
+-   The final one is `R.utils`, which allows us unzip the CEL files to read the individual sub-files.
+
+```         
+Below are code examples on how to install and load the packages into your RStudio environment:
+```
+
+```{r CEL library, results = 'hide', warning = FALSE, message=FALSE, eval=FALSE}
+ BiocManager::install("affy")
+library(affy)
+ BiocManager::install("affyio")
+library(affyio)
+ install.packages("R.utils")
+library(R.utils)
+```
+
+```{r cel install, warning=FALSE, include=FALSE, echo=FALSE, message=FALSE}
+library(affy)
+library(affyio)
+library(R.utils)
+```
+Once you have the packages installed, the next step is to download the supplementary files for the GEO file you wish to use. To get the supplementary files, you will use the function `getGEOSuppFiles("")`. Here, I will use the file `GSE7473`. Once you run this command, it will create a folder with the name of your GEO file. An example of this is code shown below:
+
+```{r Working With CEL, results='hide', message=FALSE, warning=FALSE}
+getGEOSuppFiles("GSE7473")
+```
+
+Once you have done so, there should be a file inside the folder. It will most likely be a file with the name of your GEO file followed by a `_Raw.tar`. This means that the file is compressed into a "tarred" state. To undo this compression, use the `untar` command. When using `untar`, make sure that you use the full pathway to your file. Afterwards, you can create a new folder called "Data" and extract the files into that. An example code is shown below:
+
+```{r untarring}
+untar("C:/Users/dylan/Documents/R development/FIle_download_instructions/GSE7473/GSE7473_RAW.tar", exdir = "Data")
+```
+
+Once you have completed this step, you will notice that your "Data" folder is filled with GSM files. An example of the name should be something like "GSM181425.CEL.gz" this is the compressed state of the CEL file. Our next step is to assign these files to an object so that we can decompress these CEL files. I will the explain the code in a list format as follows:
+
+1)  Cel_files : assigning all files listed in the folder path using the ending of ".CEL.gz" to a workable object with their full names.
+2)  creating an empty list object for us to use later in the process.
+3)  A loop for every file in the Cel_files object. This unzips the file using `gunzip`, and does not remove the original file. Then, it extracts the name of the file while replacing the ".gz" with a space and assigning it to an object called "unzipped_file". Afterwards, it reads the "unzipped_file" object CEL file data and assigns it to an object called "cel_data". It then checks for null, N/A, or zero data. Ensure that your file's naming concepts are kept the same throughout the process. For instance, usually, the code wants to name the cel data is "intensity" though in my case, the name in the file is "INTENSITY". if you do not make the naming conventions match, the code will not work. After checking the data, it takes the data and applies it to the `intesity_data` object. Afterwards, it converts it to a dataframe, ensuring that the base-name of the cel files is preserved. Finally, it imports all the data from the CEL files into the "all_data" object made previously.
+
+After this loop ends, there is the option to combine all data into a singular matrix frame. When doing so, it binds all the data to the same rows, and heads the matrix as a combined data frame. The last section of code is to remove the row names which are the different GSM file base-names. Due to limitations in RStudio's "knitting" process, these lines need to be commented out (using the "\#" symbol), however, ensure that you do not place the \# symbol at the beginning of the lines for the loops as shown below.
+
+```{r Transforming, eval=FALSE}
+cel_files <- list.files(path = "C:/Users/dylan/Downloads/Data", pattern = "*.CEL.gz", full.names = TRUE)
+all_data <- list()
+```
+```{r function_1, eval = FALSE}
+ for (file in cel_files) {
+     gunzip(file, remove = FALSE)
+ 
+```
+```{r, function_2, eval = FALSE}
+  unzipped_file <- gsub(".gz", "", file)
+```
+
+```{r function_3, eval = FALSE}
+cel_data <- read.celfile(unzipped_file)
+```
+
+```{r function_4, eval = FALSE}
+  if (is.null(cel_data) ||
+        (is.null(cel_data$INTENSITY) ||
+          (length(cel_data$INTENSITY) == 0 || any(is.na(cel_data$INTENSITY))))) {
+         warning(paste("No data found in", unzipped_file))
+         next  
+     }
+```
+
+```{r function_5, eval=FALSE}
+intensity_data <- cel_data$INTENSITY
+ 
+```
+```{r function_6, eval = FALSE}
+df <- as.data.frame(intensity_data)
+```
+
+```{r function_7, eval = FALSE}
+df$CEL_File <- basename(unzipped_file)
+```
+
+```{r function_8, eval = FALSE}
+     all_data[[unzipped_file]] <- df
+ }
+```
+
+```{r combining data, eval = FALSE}
+combined_df <- do.call(rbind, all_data)
+head(combined_df)
+
+row.names(combined_df) <- NULL
+```

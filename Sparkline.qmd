@@ -1,0 +1,254 @@
+---
+title: "Sparkline"
+date: last-modified
+date-fomrat: "MMM D"
+author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
+
+---
+
+```{r Tidyverse, include=FALSE, echo=FALSE, message=FALSE, results='hide', warning=FALSE, error=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(kableExtra)
+library(gt)
+library(gtExtras)
+library(ggspark)
+library(rsvg)
+library(purrr)
+library(patchwork)
+library(tidyr)
+library(boot)
+library(scales)
+library(dplyr)
+library(tidyr)
+library(sparkline)
+library(reactable)
+library(webshot2)
+```
+
+
+```{r date conversion, include=FALSE, eval=FALSE}
+# 1. Get the path of the file currently open in RStudio
+current_path <- rstudioapi::getActiveDocumentContext()$path
+
+# 2. Extract the directory and base filename
+dir_name <- dirname(current_path)
+base_name <- "Sparkline" # The static part of your name
+
+# 3. Create the new name with today's date (e.g., "Jan_22")
+new_name <- paste0(base_name, ".qmd")
+new_path <- file.path(dir_name, new_name)
+
+# 4. Rename the file on the disk
+if (current_path != new_path) {
+  file.rename(current_path, new_path)
+  message("File renamed to: ", new_name)
+}
+```
+
+```{r ggplot2 Data, include=FALSE, echo=FALSE}
+Verification_Data <- readxl::read_excel("C:/Users/dylan/Documents/R development/Heatmap/Copy of Verification Data.xlsx")
+df_spark <- Verification_Data[-c(1:288),]
+delete_1 <- "_rep1$"
+delete_2 <- "_rep2$"
+delete_3 <- "_hr$"
+
+df_spark <- df_spark %>% 
+  separate(col = verification_position_hr, into = c("ver_pos", "_hr"), sep =) %>%
+  select(-matches(delete_1), -matches(delete_2), -matches(delete_3))
+
+df_spark <- df_spark %>%
+  rename_with(~ str_remove_all(., "^norm_"), everything()) %>%
+  rename_with(~ str_remove_all(., "_avg$"), everything())
+
+Spark_table <- df_spark[,1:8]
+
+```
+
+```{r}
+df_spark<-df_spark %>% 
+  pivot_longer(cols = 3:8,
+               names_to="Condition",
+               values_to="Absorbance")
+df_spark$Absorbance <- round(df_spark$Absorbance, digits = 4)
+df_spark <- df_spark %>% 
+  mutate(
+    Condition = factor(Condition, levels = c("SD30", "SD37", "LS30", "LS37", "LN30", "LN37"))
+  )
+```
+
+```{r Sparkline, fig.width=18, fig.height=12, fig.fullwidth = TRUE}
+spark <- df_spark %>% 
+  filter(ver_pos == "2401A01") %>% 
+  ggplot(aes(x=hour, y=Absorbance, group = Condition))+
+  stat_interquartilerange(geom = "ribbon",
+                          show.legend = FALSE)+
+  geom_line()+
+  stat_sparklabels(geom = "label",
+                   aes(size = 10),
+                   show.legend = FALSE,
+                   position = position_dodge(width = 0.01))+
+  scale_colour_manual("", values = c("black",
+                                     "#4E7705",
+                                     "#7D3560"))+
+  scale_y_continuous(limits = c(0,
+                                1))+
+  facet_grid(Condition~.)+
+  ggtitle("Absorbance of gene in 2401A01 spot Id.")+
+  theme_minimal()+
+  theme(panel.grid = element_blank(),
+        axis.ticks = element_line()#,
+        #axis.title.x = element_blank(),
+        #axis.ticks.x = element_blank(),
+        #axis.text.x = element_blank()
+        )
+
+spark
+```
+
+```{r Creating A Sparkline Table}
+functional_spark <- Spark_table %>% 
+  pivot_longer(
+    cols = 3:8,
+    names_to = "Condition",
+    values_to = "Absorbance"
+  )
+
+functional_spark <- functional_spark %>% 
+  mutate(
+    Condition_name = str_extract(Condition, "^[A-Za-z]+"),
+    Temp = str_extract(Condition, "[0-9]+$"),
+    Condition = NULL
+    )
+
+spark_table <- functional_spark %>% 
+  pivot_wider(
+    names_from = "Condition_name",
+    values_from = "Absorbance"
+  )
+
+sparkline_data <- spark_table %>% 
+  group_by(Temp, ver_pos) %>% 
+  summarize(SD = list(SD),
+            LN = list(LN),
+            LS = list(LS),
+            .groups = "drop")
+
+spark_table_inv <- functional_spark %>% 
+  pivot_wider(
+    names_from = "Temp",
+    values_from = "Absorbance"
+  )
+
+sparkline_inv <- spark_table_inv %>% 
+  group_by(Condition_name, ver_pos) %>% 
+  summarize("30" = list(`30`),
+            "37" = list(`37`),
+            .groups = "drop")
+```
+
+```{r factoring}
+years <- c("2401", "2402", "2403")
+letters <- c("A", "B", "C", "D", "E", "F", "G", "H")
+numbers <- sprintf("%02d", 01:12)
+
+all_levels <- character()
+
+for ( year in years) {
+  for (letter in letters) {
+    for (number in numbers) {
+      level <- paste0(year, letter, number)
+      all_levels <- c(all_levels, level)
+    }
+  }
+}
+
+cat("First Level (Start of sequence):", all_levels[1], "\n") 
+# The last element confirms the end point: 2403H12
+cat("Last Level (End of sequence):", all_levels[length(all_levels)], "\n")
+
+sparkline_data <- sparkline_data %>% 
+  mutate(
+    ver_pos = factor(
+      ver_pos,
+      levels = all_levels,
+      ordered = TRUE
+    ),
+  ) %>% 
+  arrange(ver_pos)
+
+sparkline_inv <- sparkline_inv %>% 
+  mutate(ver_pos = factor(
+    ver_pos,
+    levels = all_levels,
+    ordered = TRUE),
+   Condition_name = factor(
+    Condition_name,
+    levels = c("SD", "LS", "LN"))) %>% 
+  arrange(ver_pos, Condition_name)
+```
+
+```{r}
+gt_sparklin_data <- sparkline_data %>%
+  gt() %>% 
+  gt_plt_sparkline(column = c("LS")) %>% 
+  gt_plt_sparkline(column = c("SD")) %>% 
+  gt_plt_sparkline(column = c("LN"))
+
+
+target_ids <- c("2401A01", "2401A02", "2401A03", "2401A04", "2401A05", "2401A06", "2401A07", "2401A08", "2401A09", "2401A10", "2401A11", "2401A12")
+
+gt_sparklin_small <- sparkline_data %>% 
+  filter(ver_pos %in% target_ids) %>% 
+  gt() %>% 
+  gt_plt_sparkline(column = c("LS")) %>% 
+  gt_plt_sparkline(column = c("SD")) %>% 
+  gt_plt_sparkline(column = c("LN"))
+
+```
+
+```{r spark_inv}
+gt_sparkline_inv <- sparkline_inv %>% 
+  gt() %>% 
+  gt_plt_sparkline(column = c("37")) %>% 
+  gt_plt_sparkline(column = c("30"))
+
+
+
+gt_invspark_small <- sparkline_inv %>% 
+  filter(ver_pos %in% target_ids) %>% 
+  gt() %>% 
+  gt_plt_sparkline(column = c("30")) %>% 
+  gt_plt_sparkline(column = c("37"))
+
+
+```
+
+```{r Sparkline table, eval=FALSE}
+gtsave(
+  data = gt_sparklin_data,
+  filename = "sparkline_table.png"
+)
+
+gtsave(
+  data = gt_sparklin_small,
+  filename = "sparktable_small.png"
+)
+
+gtsave(
+  data = gt_sparkline_inv,
+  filename = "sparkline_inv.png"
+)
+
+gtsave(
+  data = gt_invspark_small,
+  filename = "invspark_small.png"
+)
+```
+
+```{r,eval=FALSE,include=FALSE, echo=FALSE, warning=FALSE, message = FALSE}
+Small_spark <- df_spark %>% 
+  filter(ver_pos == "2401A01")
+
+write.csv(Small_spark, "small_sparklines.csv")
+```

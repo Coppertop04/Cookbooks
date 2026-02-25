@@ -1,0 +1,169 @@
+---
+title: "Kernel"
+date: last-modified
+date-fomrat: "MMM D"
+author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
+
+---
+
+```{r Tidyverse, include=FALSE, echo=FALSE, message=FALSE, results='hide', warning=FALSE, error=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(kableExtra)
+library(ggrepel)
+```
+
+```{r date conversion, include=FALSE, eval=FALSE}
+# 1. Get the path of the file currently open in RStudio
+current_path <- rstudioapi::getActiveDocumentContext()$path
+
+# 2. Extract the directory and base filename
+dir_name <- dirname(current_path)
+base_name <- "Kernel" # The static part of your name
+
+# 3. Create the new name with today's date (e.g., "Jan_22")
+new_name <- paste0(base_name, ".qmd")
+new_path <- file.path(dir_name, new_name)
+
+# 4. Rename the file on the disk
+if (current_path != new_path) {
+  file.rename(current_path, new_path)
+  message("File renamed to: ", new_name)
+}
+```
+
+```{r ggplot2 Data, include=FALSE, echo=FALSE}
+Verification_Data <- readxl::read_excel("C:/Users/dylan/Documents/R development/Heatmap/Copy of Verification Data.xlsx")
+df_box <- Verification_Data[-c(1:288),]
+delete_1 <- "_rep1$"
+delete_2 <- "_rep2$"
+delete_3 <- "_hr$"
+
+df_box <- df_box %>% 
+  separate(col = verification_position_hr, into = c("ver_pos", "_hr"), sep = "_") %>%
+  select(-matches(delete_1), -matches(delete_2), -matches(delete_3))
+
+df_box <- df_box[1:11, 1:8]
+
+df_box <- df_box %>%
+  rename_with(~ str_remove_all(., "^norm_"), everything()) %>%
+  rename_with(~ str_remove_all(., "_avg$"), everything())
+
+df_box_1 <- df_box %>% 
+  head(8)
+```
+
+```{r Pivoted Data}
+df_bw <- df_box %>% 
+  pivot_longer(cols = !c(1:2),
+               names_to = "conditions",
+               values_to = "abs")
+
+df_bw_1 <- df_bw %>% 
+  head(8)
+```
+
+# Simple Kernel
+The next portion of our guide is going to cover how to create a kernel density plot. In this case, we will be using the `geom_density` function to graph the densities of our data. Below is an example of the kernel density graph for the `df_bw` data set we used earlier.
+
+```{r Kernel Density}
+df_bw %>% 
+  ggplot(
+    aes(x=abs, color=conditions)
+  )+
+  geom_density()+
+  theme_minimal()
+```
+
+# Kernel Customization
+
+## Log 10 Kernel
+When creating a kernel density plot, you might want to use the `log10` of the absorbance. To do this, we will use similar functions as we did in the `Boxplot` sections. 
+
+```{r log10 Kernel}
+df_bw %>% 
+  ggplot(
+    aes(x=abs, color=conditions)
+  )+
+  geom_density()+
+  scale_x_continuous(trans = "log10")+
+  theme_minimal()
+```
+
+## Line Thickness
+
+The line thickness for this density plot might be harder to see, especially on larger presentation surfaces. Therefore, we need to use the argument `linewidth` in the `geom_density` function. You can change the thickness for your presentation needs. An example is shown below:
+
+```{r density thickness}
+df_bw %>% 
+  ggplot(
+    aes(x=abs, color=conditions)
+  )+
+  geom_density(linewidth = 1)+
+  theme_minimal()
+```
+
+## Filtering
+
+The next step we could use is to examine only a singular condition for the kernel density. To do so, we will use the `filter` argument.
+
+```{r Filtered density}
+df_bw %>% 
+  filter(conditions == "SD30") %>% 
+  ggplot(
+    aes(x=abs))+
+  geom_density()+
+  geom_density()+
+  theme_minimal()
+```
+
+## Adjustment
+
+The next available step is to reduce the smoothing of our line, to do this, we will use the `adjust` function in geom_density. The lower the number from 1, the further it is from the initial smoothed line. In this instance, an adjust of `0.5` would half the bandwidth. Bandwidth is referring to the generality of the kernel plot. The higher the number from 1, the more smoothed the line becomes.\
+
+Below is an example of a density plot with no smoothing adjustment [Red]{style="color: red;"}, and the smoothing adjustment of 0.5, [Blue]{style="color: blue;"}.
+
+```{r adjusted Density}
+df_bw %>% 
+  filter(conditions == "SD30") %>% 
+  ggplot(
+    aes(x=abs)
+  )+
+  geom_density(color = "red")+
+  geom_density (adjust = 0.5, color = "blue")+
+  theme_minimal()
+
+```
+
+The adjusted 0.5 density plot looks to be taller than that of the initial plot. This is due to the density curves trying to retain the same area under the graph before and after the changes. Therefore, the density graph heights increase.
+
+## Kernel Line Type
+Another way to change your density plot is to change the line type for your graph. For this case, I will use the code above and change the [Blue]{style="color: blue;"} line to be a `dashed` line.
+
+```{r Line Type Kernel}
+df_bw %>% 
+  filter(conditions == "SD30") %>% 
+  ggplot(
+    aes(x=abs)
+  )+
+  geom_density(color = "red")+
+  geom_density (adjust = 0.5, color = "blue", linetype = "dashed")+
+  theme_minimal()
+```
+
+## Kernel Faceting
+
+Another way that we can separate our kernel plot for our data set is to facet wrap. To do so, we will use the `facet_wrap` function and facet around our conditions. An example is provided below:
+
+```{r Kernel Faceting}
+df_bw %>% 
+  ggplot(
+    aes(x = abs, color = conditions)
+  )+
+  geom_density(linewidth = 1)+
+  facet_wrap(~conditions, nrow = 3, ncol = 2)+
+  theme(strip.text = element_blank())+
+  theme_minimal()
+
+```
+

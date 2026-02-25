@@ -1,0 +1,47 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  sidebar:
+    title: "Comprehensive Guide to Bioinformatics in R"
+    style: "docked"
+    search: true
+    contents:
+      - index.qmd
+      - text: "&nbsp;"
+      - text: "Chapter 1"
+        file: Intro.qmd
+      - text: "Chapter 2"
+        file: File_download.qmd
+      - text: "Chapter 3"
+        file: Pivot.qmd
+      - text: "Chapter 4"
+        file: Scatter.qmd
+      - text: "Chapter 5"
+        file: Volcano.qmd
+      - text: "Chapter 6"
+        file: Line.qmd
+      - text: "Chapter 7"
+        file: Sparkline.qmd
+      - text: "Chapter 8"
+        file: Kernel.qmd
+      - text: "Chapter 9"
+        file: Box_and_Whisker.qmd
+      - text: "Chapter 10"
+        file: Violin.qmd
+      - text: "Chapter 11"
+        file: Pheatmap.qmd
+      - text: "Chapter 12"
+        file: Hydra.qmd
+  
+format:
+  html:
+    theme: 
+      light: lux
+      dark: cyborg
+    toc: true
+    toc-depth: 5
+    toc-fixed: true
+    toc-title: "In this chapter:"  
+    numbered-sections: false
