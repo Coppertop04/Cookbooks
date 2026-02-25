@@ -7,13 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dylan M. Ayres, Jacob A. Serrano, Dr.&nbsp;Amy Wiles">
-<<<<<<< HEAD
 <meta name="dcterms.date" content="2026-02-25">
-=======
-<meta name="dcterms.date" content="2026-02-20">
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 
-<title>Volcano Plots</title>
+<title>Volcano Plots – Comprehensive Guide to Bioinformatics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c3f2008c781572912d2344a94200f79e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-1fe9d2c7b99cd45e9a946634360b3016.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-c3f2008c781572912d2344a94200f79e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4bea95ecc9619a44b878dd2a661a875a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-7da62a335b885c6224191a8aaca89d44.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-4bea95ecc9619a44b878dd2a661a875a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -98,7 +94,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "/",
     "s"
   ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -301,15 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="./index.html" class="sidebar-logo-link">
       </a>
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">Comprehensive Guide to Bioinformatics in R</a> 
-        <div class="sidebar-tools-main">
+      <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-    </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
@@ -449,11 +441,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-<<<<<<< HEAD
       <p class="date">February 25, 2026</p>
-=======
-      <p class="date">February 20, 2026</p>
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
     </div>
   </div>
   
@@ -495,11 +483,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Labeling Your Data</h1>
 <p>Before we begin creating volcano plots, it is important to ensure that we label our data to determine what values are significant and which values are not significant. To do this, we will use the <code>mutate()</code> function to add a new column to our dataset with the labels. The code window below shows how this is done.</p>
 <div class="cell">
-<<<<<<< HEAD
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>BSQN_LN_SD_volcano <span class="ot">&lt;-</span> df_volcano_filtered <span class="sc">%&gt;%</span> </span>
-=======
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>BSQN_LN_SD__volcano <span class="ot">&lt;-</span> df_volcano_filtered <span class="sc">%&gt;%</span> </span>
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>BSQN_LN_SD_volcano <span class="ot">&lt;-</span> df_volcano_filtered <span class="sc">%&gt;%</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diffexpressed =</span> <span class="fu">case_when</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    LN_SD_M_values <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> BSQN_p_values_LN <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">~</span> <span class="st">"Up"</span>,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    LN_SD_M_values <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> BSQN_p_values_LN <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">~</span> <span class="st">"Down"</span>,</span>
@@ -520,12 +504,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"M_value"</span>,</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"-log10 p value"</span>,</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Expression status"</span>)<span class="sc">+</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<<<<<<< HEAD
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)<span class="sc">+</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-=======
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In the code window above, we specified the M values on the x axis, the -log10 of the p values on the y axis, and color to be related to the <code>diffexpressed</code> column values. After that, the <code>geom_hline()</code> function creates a dashed line as a distinction for significance at the -log 10 of 0.05. The <code>geom_vline()</code> functoin creates vertical dashed lines at -1 and 1 to represent where differences between the condition and the control condition in terms of expression. The <code>scale_color_manual()</code> function creates a custom scale that uses the expression status column created before to color up- and down-regulated expression of genes. The visual of this is shown below:</p>
 <div class="cell">

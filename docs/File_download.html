@@ -7,13 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dylan M. Ayres, Jacob A. Serrano, Dr.&nbsp;Amy Wiles">
-<<<<<<< HEAD
-<meta name="dcterms.date" content="2026-02-24">
-=======
-<meta name="dcterms.date" content="2026-02-20">
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
+<meta name="dcterms.date" content="2026-02-25">
 
-<title>File Download Instructions</title>
+<title>File Download Instructions – Comprehensive Guide to Bioinformatics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c3f2008c781572912d2344a94200f79e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-1fe9d2c7b99cd45e9a946634360b3016.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-c3f2008c781572912d2344a94200f79e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4bea95ecc9619a44b878dd2a661a875a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-7da62a335b885c6224191a8aaca89d44.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-4bea95ecc9619a44b878dd2a661a875a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -98,7 +94,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "/",
     "s"
   ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -301,15 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="./index.html" class="sidebar-logo-link">
       </a>
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">Comprehensive Guide to Bioinformatics in R</a> 
-        <div class="sidebar-tools-main">
+      <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-    </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
@@ -452,11 +444,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-<<<<<<< HEAD
-      <p class="date">February 24, 2026</p>
-=======
-      <p class="date">February 20, 2026</p>
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
+      <p class="date">February 25, 2026</p>
     </div>
   </div>
   
@@ -622,18 +610,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Once you have done so, there should be a file inside the folder. It will most likely be a file with the name of your GEO file followed by a <code>_Raw.tar</code>. This means that the file is compressed into a “tarred” state. To undo this compression, use the <code>untar</code> command. When using <code>untar</code>, make sure that you use the full pathway to your file. Afterwards, you can create a new folder called “Data” and extract the files into that. An example code is shown below:</p>
 <div class="cell">
-<<<<<<< HEAD
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">untar</span>(<span class="st">"C:/Users/dylan/Documents/R development/FIle_download_instructions/GSE7473/GSE7473_RAW.tar"</span>, <span class="at">exdir =</span> <span class="st">"Data"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in untar("C:/Users/dylan/Documents/R
-development/FIle_download_instructions/GSE7473/GSE7473_RAW.tar", : 'tar.exe -xf
-"C:/Users/dylan/Documents/R
-development/FIle_download_instructions/GSE7473/GSE7473_RAW.tar" -C "Data"'
-returned error code 1</code></pre>
-</div>
-=======
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">untar</span>(<span class="st">"C:/Users/dylan/OneDrive/Documents/R development/FIle_download_instructions/GSE7473/GSE7473_RAW.tar"</span>, <span class="at">exdir =</span> <span class="st">"Data"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 </div>
 <p>Once you have completed this step, you will notice that your “Data” folder is filled with GSM files. An example of the name should be something like “GSM181425.CEL.gz” this is the compressed state of the CEL file. Our next step is to assign these files to an object so that we can decompress these CEL files. I will the explain the code in a list format as follows:</p>
 <ol type="1">
@@ -643,47 +620,6 @@ returned error code 1</code></pre>
 </ol>
 <p>After this loop ends, there is the option to combine all data into a singular matrix frame. When doing so, it binds all the data to the same rows, and heads the matrix as a combined data frame. The last section of code is to remove the row names which are the different GSM file base-names. Due to limitations in RStudio’s “knitting” process, these lines need to be commented out (using the “#” symbol), however, ensure that you do not place the # symbol at the beginning of the lines for the loops as shown below.</p>
 <div class="cell">
-<<<<<<< HEAD
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>cel_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">"C:/Users/dylan/Downloads/Data"</span>, <span class="at">pattern =</span> <span class="st">"*.CEL.gz"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">list</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a> <span class="cf">for</span> (file <span class="cf">in</span> cel_files) {</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">gunzip</span>(file, <span class="at">remove =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>  unzipped_file <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">".gz"</span>, <span class="st">""</span>, file)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>cel_data <span class="ot">&lt;-</span> <span class="fu">read.celfile</span>(unzipped_file)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(cel_data) <span class="sc">||</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>        (<span class="fu">is.null</span>(cel_data<span class="sc">$</span>INTENSITY) <span class="sc">||</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>          (<span class="fu">length</span>(cel_data<span class="sc">$</span>INTENSITY) <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> <span class="fu">any</span>(<span class="fu">is.na</span>(cel_data<span class="sc">$</span>INTENSITY))))) {</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">warning</span>(<span class="fu">paste</span>(<span class="st">"No data found in"</span>, unzipped_file))</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>         <span class="cf">next</span>  </span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>     }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>intensity_data <span class="ot">&lt;-</span> cel_data<span class="sc">$</span>INTENSITY</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(intensity_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>CEL_File <span class="ot">&lt;-</span> <span class="fu">basename</span>(unzipped_file)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>     all_data[[unzipped_file]] <span class="ot">&lt;-</span> df</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a> <span class="er">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>combined_df <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, all_data)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(combined_df)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(combined_df) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-=======
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cel_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">"C:/Users/dylan/Downloads/Data"</span>, <span class="at">pattern =</span> <span class="st">"*.CEL.gz"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">list</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -723,7 +659,6 @@ returned error code 1</code></pre>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(combined_df)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(combined_df) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 </div>
 
 

@@ -227,7 +227,7 @@ mtcars2 %>%
   theme_gray()
 ```
 
-```{r, echo=FALSE, results='hold', fig.align='center'}
+```{r, echo=FALSE, results='hold'}
 mtcars2 %>% 
   ggplot(aes(x=wt, y=mpg, color=gear))+
   geom_point()+
@@ -242,10 +242,10 @@ mtcars2 %>%
   theme_gray()
 ```
 
-<<<<<<< HEAD
+
 &nsbsp; The default `theme_gray()` has a darker gray background with white lines to signify axis tick marks and the midpoint for minor tick marks. However, this theme is not always the easiest to read. Another option that enhances the readibility of your graphs is `theme_bw()` which is shown below:
 
-```{r, echo=FALSE, results='hold', fig.align='center'}
+```{r, echo=FALSE, results='hold'}
 mtcars2 %>% 
   ggplot(aes(x=wt, y=mpg, color=gear))+
   geom_point()+
@@ -262,7 +262,7 @@ mtcars2 %>%
 
 &nbsp; This theme swaps the white with the gray and makes the lines a little more visible. This theme also matches the background of your graph with the background of the default window in R. Another theme that has a similar style is that of `theme_linedraw()`. Which is shown below:
 
-```{r, echo=FALSE, results='hold', fig.align='center'}
+```{r, echo=FALSE, results='hold'}
 mtcars2 %>% 
   ggplot(aes(x=wt, y=mpg, color=gear))+
   geom_point()+
@@ -279,7 +279,7 @@ mtcars2 %>%
 
 &nbsp; This theme really highlights the importance of the minor and major tick marks of your graphs by changing the light gray lines into solid black lines instead. If the hard edges of these graphs do not match the style of your presentation, you can also use `theme_minimal`, which is shown below:
 
-```{r, echo=FALSE, results='hold', fig.align='center'}
+```{r, echo=FALSE, results='hold'}
 mtcars2 %>% 
   ggplot(aes(x=wt, y=mpg, color=gear))+
   geom_point()+
@@ -296,7 +296,7 @@ mtcars2 %>%
 
 &nbsp; This theme removes the harder lines surrounding the plot and returns to the classic white background and gray axis tick marks. This theme can be useful if you are using multiple plots together, as shown in later chapters like[*Hyrda*](Hydra.qmd) or in [*Violin*](Violin.qmd). The final theme can be used more to show a general trend without focusing on the other details involved in the previous themes by using `theme_clasic()` as shown below:
 
-```{r, echo=FALSE, results='hold', fig.align='center'}
+```{r, echo=FALSE, results='hold'}
 mtcars2 %>% 
   ggplot(aes(x=wt, y=mpg, color=gear))+
   geom_point()+
@@ -313,7 +313,7 @@ mtcars2 %>%
 
 &nbsp; You can also separate the conditions of a data set by using `facet_grid()` and it will apply the themes chosen. An example is shown below:
 
-```{r, eval = FALSE, fig.align='center'}
+```{r, eval = FALSE}
 mtcars2 %>% 
   ggplot(aes(x=wt, y=mpg, color=gear))+
   geom_point()+
@@ -328,7 +328,7 @@ mtcars2 %>%
   theme_gray()+
   facet_grid(vs ~ am)
 ```
-```{r, echo= FALSE, fig.align = 'center'}
+```{r, echo= FALSE}
 mtcars2 %>% 
   ggplot(aes(x=wt, y=mpg, color=gear))+
   geom_point()+
@@ -343,6 +343,6 @@ mtcars2 %>%
   theme_gray()+
   facet_grid(vs ~ am)
 ```
-=======
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
+
+
 ## Summarize

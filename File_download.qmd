@@ -204,11 +204,7 @@ getGEOSuppFiles("GSE7473")
 Once you have done so, there should be a file inside the folder. It will most likely be a file with the name of your GEO file followed by a `_Raw.tar`. This means that the file is compressed into a "tarred" state. To undo this compression, use the `untar` command. When using `untar`, make sure that you use the full pathway to your file. Afterwards, you can create a new folder called "Data" and extract the files into that. An example code is shown below:
 
 ```{r untarring}
-<<<<<<< HEAD
-untar("C:/Users/dylan/Documents/R development/FIle_download_instructions/GSE7473/GSE7473_RAW.tar", exdir = "Data")
-=======
 untar("C:/Users/dylan/OneDrive/Documents/R development/FIle_download_instructions/GSE7473/GSE7473_RAW.tar", exdir = "Data")
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 ```
 
 Once you have completed this step, you will notice that your "Data" folder is filled with GSM files. An example of the name should be something like "GSM181425.CEL.gz" this is the compressed state of the CEL file. Our next step is to assign these files to an object so that we can decompress these CEL files. I will the explain the code in a list format as follows:

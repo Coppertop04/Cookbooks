@@ -47,25 +47,15 @@ if (current_path != new_path) {
 ```
 
 ```{r ggplot2 Data, include=FALSE, echo=FALSE}
-<<<<<<< HEAD
 Verification_Data <- readxl::read_excel("C:/Users/dylan/Documents/R development/Heatmap/Copy of Verification Data.xlsx")
-=======
-Verification_Data <- readxl::read_excel("C:/Users/dylan/OneDrive/Documents/R development/Box_Whisker/B&W Data/Verification Data.xlsx")
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 df_spark <- Verification_Data[-c(1:288),]
 delete_1 <- "_rep1$"
 delete_2 <- "_rep2$"
 delete_3 <- "_hr$"
 
 df_spark <- df_spark %>% 
-<<<<<<< HEAD
   separate(col = verification_position_hr, into = c("ver_pos", "_hr"), sep =) %>%
   select(-matches(delete_1), -matches(delete_2), -matches(delete_3))
-=======
-  select(-matches(delete_1), -matches(delete_2), -matches(delete_3))
-  
-df_spark <- df_spark[,-c(1)]
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 
 df_spark <- df_spark %>%
   rename_with(~ str_remove_all(., "^norm_"), everything()) %>%

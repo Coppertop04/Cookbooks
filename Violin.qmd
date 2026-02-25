@@ -35,25 +35,15 @@ if (current_path != new_path) {
 ```
 
 ```{r ggplot2 Data, include=FALSE, echo=FALSE}
-<<<<<<< HEAD
 Verification_Data <- readxl::read_excel("C:/Users/dylan/Documents/R development/Heatmap/Copy of Verification Data.xlsx")
-=======
-Verification_Data <- readxl::read_excel("C:/Users/dylan/OneDrive/Documents/R development/Box_Whisker/B&W Data/Verification Data.xlsx")
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 df_sina <- Verification_Data[-c(1:288),]
 delete_1 <- "_rep1$"
 delete_2 <- "_rep2$"
 delete_3 <- "_hr$"
 
 df_sina <- df_sina %>% 
-<<<<<<< HEAD
   separate(col = verification_position_hr, into = c("ver_pos", "_hr"), sep =) %>%
   select(-matches(delete_1), -matches(delete_2), -matches(delete_3))
-=======
-  select(-matches(delete_1), -matches(delete_2), -matches(delete_3))
-  
-df_sina <- df_sina[,-c(1)]
->>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 
 df_sina <- df_sina[1:250, 1:8]
 
