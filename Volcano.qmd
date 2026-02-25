@@ -64,7 +64,11 @@ if (current_path != new_path) {
 ```
 
 ```{r ggplot2 Data, include=FALSE, echo=FALSE}
+<<<<<<< HEAD
 Volcano_data <- readxl::read_excel("C:/Users/dylan/Documents/R development/Volcano/Volcano_data.xlsx")
+=======
+Volcano_data <- readxl::read_excel("C:/Users/dylan/OneDrive/Documents/R development/Volcano/Volcano_data.xlsx")
+>>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 
 df_volcano <- Volcano_data %>% 
   filter(!(`duplicate notes` %in% c("superceded by 2.0 plate", "dup LS not sig; not hit", "dup LN not sig; not hit"))) %>% 
@@ -84,7 +88,11 @@ df_volcano_filtered <- df_volcano %>%
 Before we begin creating volcano plots, it is important to ensure that we label our data to determine what values are significant and which values are not significant. To do this, we will use the `mutate()` function to add a new column to our dataset with the labels. The code window below shows how this is done.
 
 ```{r data labeling, eval=FALSE}
+<<<<<<< HEAD
 BSQN_LN_SD_volcano <- df_volcano_filtered %>% 
+=======
+BSQN_LN_SD__volcano <- df_volcano_filtered %>% 
+>>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
   mutate(diffexpressed = case_when(
     LN_SD_M_values > 1 & BSQN_p_values_LN < 0.05 ~ "Up",
     LN_SD_M_values < -1 & BSQN_p_values_LN < 0.05 ~ "Down",
@@ -102,6 +110,10 @@ BSQN_LN_SD_volcano <- df_volcano_filtered %>%
     TRUE ~ "No"
   )) %>% 
   select(-`duplicate notes`, -BSQN_p_values_LS, -cellhts2_LS_p_values, -cellhts2_LN_p_values, -LS_SD_M_values)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 ```
 
 # Creating a Volcano Plot
@@ -118,7 +130,11 @@ BSQN_LN <-ggplot(BSQN_LN_SD_volcano, aes(x=LN_SD_M_values, y = -log10(BSQN_p_val
        y = "-log10 p value",
        color = "Expression status")+
     theme_minimal()+
+<<<<<<< HEAD
     theme(legend.position = "right")+
+=======
+    theme(legend.position = "right")
+>>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 ```
 
 In the code window above, we specified the M values on the x axis, the -log10 of the p values on the y axis, and color to be related to the `diffexpressed` column values. After that, the `geom_hline()` function creates a dashed line as a distinction for significance at the -log 10 of 0.05. The `geom_vline()` functoin creates vertical dashed lines at -1 and 1 to represent where differences between the condition and the control condition in terms of expression. The `scale_color_manual()` function creates a custom scale that uses the expression status column created before to color up- and down-regulated expression of genes. The visual of this is shown below:
@@ -675,6 +691,7 @@ log_final_plot <- (left_col | log_col_nitrogen | log_col_sulfur) +
 
 log_final_plot
 ```
+<<<<<<< HEAD
 
 
 ```{r test data, include=FALSE, echo=FALSE, message=FALSE, results='hide', warning=FALSE, error=FALSE}
@@ -757,3 +774,5 @@ log_facet <- final_plot_data %>%
 
 log_facet
 ```
+=======
+>>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a

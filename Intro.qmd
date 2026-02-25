@@ -242,6 +242,7 @@ mtcars2 %>%
   theme_gray()
 ```
 
+<<<<<<< HEAD
 &nsbsp; The default `theme_gray()` has a darker gray background with white lines to signify axis tick marks and the midpoint for minor tick marks. However, this theme is not always the easiest to read. Another option that enhances the readibility of your graphs is `theme_bw()` which is shown below:
 
 ```{r, echo=FALSE, results='hold', fig.align='center'}
@@ -342,4 +343,6 @@ mtcars2 %>%
   theme_gray()+
   facet_grid(vs ~ am)
 ```
+=======
+>>>>>>> 7d014fc5cf8af07b1e3c9cfa1459c84315d0725a
 ## Summarize
