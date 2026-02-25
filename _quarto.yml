@@ -3,38 +3,38 @@ project:
   output-dir: docs
 
 website:
-  title: "Comprehensive Guide to Bioinformatics in R"
   search:
     location: sidebar
     type: textbox
   sidebar:
+    title: "Comprehensive Guide to Bioinformatics in R"
     style: "docked"
     contents:
       - index.qmd
       - text: "&nbsp;"
-      - text: "Chapter 1"
+      - text: "Chapter 1: Intro"
         file: Intro.qmd
-      - text: "Chapter 2"
+      - text: "Chapter 2: Download"
         file: File_download.qmd
-      - text: "Chapter 3"
+      - text: "Chapter 3: Pivot"
         file: Pivot.qmd
-      - text: "Chapter 4"
+      - text: "Chapter 4: Scatter"
         file: Scatter.qmd
-      - text: "Chapter 5"
+      - text: "Chapter 5: Volcano"
         file: Volcano.qmd
-      - text: "Chapter 6"
+      - text: "Chapter 6: Line"
         file: Line.qmd
-      - text: "Chapter 7"
+      - text: "Chapter 7: Spark"
         file: Sparkline.qmd
-      - text: "Chapter 8"
+      - text: "Chapter 8: Kernel"
         file: Kernel.qmd
-      - text: "Chapter 9"
+      - text: "Chapter 9: Box"
         file: Box_and_Whisker.qmd
-      - text: "Chapter 10"
+      - text: "Chapter 10: Violin"
         file: Violin.qmd
-      - text: "Chapter 11"
+      - text: "Chapter 11: Heatmap"
         file: Pheatmap.qmd
-      - text: "Chapter 12"
+      - text: "Chapter 12: Hydra"
         file: Hydra.qmd
   
 format:
