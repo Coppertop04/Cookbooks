@@ -17,24 +17,6 @@ library(tidyr)
 library(scales)
 ```
 
-```{r date conversion, include=FALSE, eval=FALSE}
-# 1. Get the path of the file currently open in RStudio
-current_path <- rstudioapi::getActiveDocumentContext()$path
-
-# 2. Extract the directory and base filename
-dir_name <- dirname(current_path)
-base_name <- "Line" # The static part of your name
-
-# 3. Create the new name with today's date (e.g., "Jan_22")
-new_name <- paste0(base_name, ".qmd")
-new_path <- file.path(dir_name, new_name)
-
-# 4. Rename the file on the disk
-if (current_path != new_path) {
-  file.rename(current_path, new_path)
-  message("File renamed to: ", new_name)
-}
-```
 
 ```{r Data Creation, echo = FALSE, include = FALSE}
 Verification_Data <- readxl::read_excel("C:/Users/dylan/Documents/R development/Heatmap/Copy of Verification Data.xlsx")

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dylan M. Ayres, Jacob A. Serrano, Dr.&nbsp;Amy Wiles">
-<meta name="dcterms.date" content="2026-02-25">
+<meta name="dcterms.date" content="2026-03-09">
 
 <title>Introduction to RStudio</title>
 <style>
@@ -110,6 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -417,6 +418,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ggplot2" id="toc-ggplot2" class="nav-link" data-scroll-target="#ggplot2">GGplot2</a>
   <ul>
   <li><a href="#themes" id="toc-themes" class="nav-link" data-scroll-target="#themes">Themes</a></li>
+  </ul></li>
+  <li><a href="#dplyr" id="toc-dplyr" class="nav-link" data-scroll-target="#dplyr"><code>dplyr</code></a>
+  <ul>
   <li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize">Summarize</a></li>
   </ul></li>
   </ul>
@@ -445,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 25, 2026</p>
+      <p class="date">March 9, 2026</p>
     </div>
   </div>
   
@@ -525,31 +529,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Shapes</h1>
 <p>&nbsp; In later chapters, we will use shapes to be able to determine specific points from others, or to change how the data looks on a graph. In most cases, we will do so using a <code>shape =</code> argument. Instead of being able to specify a type of shape, we will have to use numbers assigned to a specific type of shape. A list is shown below:</p>
 <style>
-/* Center the table and force it to be narrow */
-table {
+/* 1. Container centering */
+.small-table {
+  text-align: center !important;
+  margin: 30px 0 !important;
+  width: 100% !important;
+}
+
+/* 2. Slightly larger "Mini" Table */
+.small-table table {
+  display: table !important;
+  width: 380px !important;       /* Increased from 220px */
+  max-width: 380px !important;
+  min-width: 300px !important;
+  font-size: 0.85rem !important; /* Increased font size for legibility */
+  margin: 0 auto !important;
+  border: 1px solid #ddd !important;
+  table-layout: auto !important; /* Allows columns to breathe a bit */
+}
+
+/* 3. Give the rows a bit more vertical 'air' */
+.small-table td, .small-table th {
+  padding: 6px 8px !important;   /* Increased padding */
+  line-height: 1.2 !important;
+}
+
+/* 4. Shape icons scale up slightly */
+.small-table img {
+  height: 24px !important;       /* Increased from 16px */
   width: auto !important;
-  margin-left: auto !important; /* Changed from 0 to auto */
+  vertical-align: middle;
+}
+
+/* 5. Code blocks remain centered */
+.cell-code {
+  margin-left: auto !important;
   margin-right: auto !important;
-  border-collapse: collapse;
-}
-
-/* Tighten cell spacing */
-table.table td, table.table th {
-  padding: 2px 8px !important; 
-  white-space: nowrap !important;
-  font-size: 0.85em;
-  vertical-align: middle !important;
-  text-align: center; /* Centers text and images within the cells */
-}
-
-/* Ensure the Shape images stay small */
-img {
-  height: 30px !important;
-  width: auto;
-  display: block;
-  margin: auto;
+  width: 85% !important;
 }
 </style>
+<div class="small-table">
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -641,6 +660,7 @@ img {
 </tr>
 </tbody>
 </table>
+</div>
 </section>
 <section id="ggplot2" class="level1">
 <h1>GGplot2</h1>
@@ -664,51 +684,51 @@ img {
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Gears"</span>)<span class="sc">+</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Intro_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Intro_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>&amp;nsbsp; The default <code>theme_gray()</code> has a darker gray background with white lines to signify axis tick marks and the midpoint for minor tick marks. However, this theme is not always the easiest to read. Another option that enhances the readibility of your graphs is <code>theme_bw()</code> which is shown below:</p>
-<div class="cell">
+<p>&nbsp; The default <code>theme_gray()</code> has a darker gray background with white lines to signify axis tick marks and the midpoint for minor tick marks. However, this theme is not always the easiest to read. Another option that enhances the readibility of your graphs is <code>theme_bw()</code> which is shown below:</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Intro_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Intro_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>&nbsp; This theme swaps the white with the gray and makes the lines a little more visible. This theme also matches the background of your graph with the background of the default window in R. Another theme that has a similar style is that of <code>theme_linedraw()</code>. Which is shown below:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Intro_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Intro_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>&nbsp; This theme really highlights the importance of the minor and major tick marks of your graphs by changing the light gray lines into solid black lines instead. If the hard edges of these graphs do not match the style of your presentation, you can also use <code>theme_minimal</code>, which is shown below:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Intro_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Intro_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>&nbsp; This theme removes the harder lines surrounding the plot and returns to the classic white background and gray axis tick marks. This theme can be useful if you are using multiple plots together, as shown in later chapters like<a href="./Hydra.html"><em>Hyrda</em></a> or in <a href="./Violin.html"><em>Violin</em></a>. The final theme can be used more to show a general trend without focusing on the other details involved in the previous themes by using <code>theme_clasic()</code> as shown below:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Intro_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Intro_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -729,18 +749,118 @@ img {
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>()<span class="sc">+</span></span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(vs <span class="sc">~</span> am)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Intro_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Intro_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
+</section>
+<section id="dplyr" class="level1">
+<h1><code>dplyr</code></h1>
+<p>&nbsp; Dplyr is a package that provides a consistent language for the manupilation of data structures. When you load the <code>tidyverse</code> package, the <code>dplyr</code> package is also installed under the collection of <code>tidyverse</code>. There are multiple functions that are involved in dplyr, such as <code>mutate()</code>, <code>select()</code>, <code>filter()</code>, <code>arrange()</code>, and <code>summarize()</code>. While all of these functions are very useful for data analysis and summary statistics of data, we will be focusing on the <code>summarie()</code> function in this section of the cookbook.</p>
 <section id="summarize" class="level2">
 <h2 class="anchored" data-anchor-id="summarize">Summarize</h2>
+<p>&nbsp; The summarize function reduces multiple values down to a single summarized value. For instance, it can achieve the mean, median, mode, standard deviation, and many other values. However, you must also provide a name for the values you want summarized. A list of values will be shown below:</p>
+<div class="small-table">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Argument</th>
+<th style="text-align: left;">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">mean</td>
+<td style="text-align: left;">mean = mean(value)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">median</td>
+<td style="text-align: left;">median = median(value)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">sd</td>
+<td style="text-align: left;">sd = sd(value)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">IQR</td>
+<td style="text-align: left;">IQR = IQR(value)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mad</td>
+<td style="text-align: left;">mad = mad(value)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">min</td>
+<td style="text-align: left;">min = min(value)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">max</td>
+<td style="text-align: left;">max = max(value)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">first</td>
+<td style="text-align: left;">first = first(value)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">last</td>
+<td style="text-align: left;">last = last(value)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">nth</td>
+<td style="text-align: left;">nth = nth(value)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">n</td>
+<td style="text-align: left;">n = n(value)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">n_distinct</td>
+<td style="text-align: left;">n_distinct = n_distinct(value)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">any</td>
+<td style="text-align: left;">any = any(value)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">all</td>
+<td style="text-align: left;">all = all(value)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>&nbsp; After using this value, you can incorporate it into the ggplot functions shown above in the <a href="./Intro.html#themes"><em>Themes</em></a> section. For example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gear) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_mpg =</span> <span class="fu">mean</span>(mpg),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_wt =</span> <span class="fu">mean</span>(wt)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_wt, <span class="at">y =</span> mean_mpg, <span class="at">color =</span> <span class="fu">as.factor</span>(gear))) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Fuel Economy by Gear Group"</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Mean Weight (1000 lbs)"</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mean Fuel Economy (mpg)"</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Gears"</span>) <span class="sc">+</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Intro_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp; You can see that this severely limited the values available to plot. This is due to the <code>group_by()</code> feature that selected only based on gears available. If you have a larger amount of data and variables, summarize can help explain and show many qualities of your data set.</p>
 
 
 </section>
