@@ -1,7 +1,7 @@
 ---
 title: "Violin"
 date: last-modified
-date-fomrat: "MMM D"
+date-format: "MMM D"
 author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
 
 ---

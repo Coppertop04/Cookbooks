@@ -2,7 +2,7 @@
 title: "Lineplot"
 author: "Dylan M. Ayres, Jacob A. Serrano, Dr. Amy Wiles"
 date:   "'r Sys.Date()'"
-
+date-format: "MMM D"
 ---
 
 #Libraries

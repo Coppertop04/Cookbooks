@@ -6,6 +6,10 @@ website:
   search:
     location: sidebar
     type: textbox
+  navbar:
+    right:
+      - icon: contrast
+        aria-label: "Toggle Dark Mode"
   sidebar:
     title: "Comprehensive Guide to Bioinformatics in R"
     style: "docked"
@@ -42,7 +46,6 @@ format:
     theme: 
       light: lumen
       dark: superhero
-    darkmode: true
     css: style.css
     toc: true
     toc-depth: 5
