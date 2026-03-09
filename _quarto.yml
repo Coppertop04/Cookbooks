@@ -42,9 +42,11 @@ format:
     theme: 
       light: lumen
       dark: superhero
+    darkmode: true
     css: style.css
     toc: true
     toc-depth: 5
     toc-fixed: true
     toc-title: "In this chapter:"  
     numbered-sections: false
+    

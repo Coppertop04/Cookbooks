@@ -1,0 +1,62 @@
+/*-- scss:defaults --*/
+
+// LUX TWEAKS (Light Mode)
+// ---------------------------------------------------------
+$body-bg: #fff;
+$body-color: #333;
+$navbar-light-bg: #fff;
+
+// SUPERHERO TWEAKS (Dark Mode)
+// ---------------------------------------------------------
+// These variables only apply when the "dark" theme is active
+$web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap";
+$primary: #df691a; // The iconic Superhero Orange
+
+
+/*-- scss:rules --*/
+
+// 1. SMOOTH TRANSITION
+// This prevents the "harsh snap" when clicking the toggle or changing pages
+body {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+// 2. PERSISTENCE FIX: THEME-SPECIFIC OVERRIDES
+// This ensures that even if Quarto's internal CSS is slow to load, 
+// our "Superhero" styles are ready.
+
+[data-bs-theme="dark"] {
+  // Superhero specific link colors
+  a {
+    color: #ff7b00;
+    &:hover {
+      color: #ffa500;
+    }
+  }
+
+  // Make the navigation bar stand out in Superhero mode
+  .navbar {
+    border-bottom: 2px solid #df691a;
+  }
+
+  // Ensure code blocks look good in dark mode
+  pre, code {
+    background-color: #1a232d !important;
+    color: #ebebeb !important;
+  }
+}
+
+[data-bs-theme="light"] {
+  // Lux specific clean borders
+  .navbar {
+    border-bottom: 1px solid #ebebeb;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+}
+
+// 3. QUARTO SPECIFIC FIXES
+// Sometimes Quarto uses .quarto-dark class on the body
+.quarto-dark {
+  background-color: #2b3e50 !important;
+  color: #ebebeb !important;
+}
