@@ -388,7 +388,7 @@ mtcars %>%
     color = "Gears") +
   theme_gray()
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.align='center'}
 mtcars %>%
   group_by(gear) %>% 
   summarize(
